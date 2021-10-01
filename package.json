@@ -1,0 +1,35 @@
+{
+  "name": "decodednft",
+  "version": "1.0.0",
+  "description": "NFT Collection Dedicated to Polkadot Decoded 2021",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": ""
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "homepage": "",
+  "dependencies": {
+    "@polkadot/api": "6.0.5",
+    "bignumber.js": "^9.0.0",
+    "fs": "^0.0.1-security",
+    "merge-img": "^2.1.3",
+    "png-crop": "^0.0.2",
+    "protobufjs": "6.11.0",
+    "sprintf-js": "^1.1.2"
+  },
+  "standard": {
+    "globals": [
+      "it",
+      "assert",
+      "beforeEach",
+      "afterEach",
+      "describe",
+      "contract",
+      "artifacts"
+    ]
+  }
+}
