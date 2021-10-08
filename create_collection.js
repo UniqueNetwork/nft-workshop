@@ -90,7 +90,7 @@ async function main() {
   await submitTransaction(owner, tx2);
  
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipfs/QmRGCpYx64BBGFVsvbzGwpgdzTUK6wk7nJT2uMW2dUYiHn/image{id}.png`);
+  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
   await submitTransaction(owner, tx3);
 }
 

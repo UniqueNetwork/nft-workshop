@@ -64,12 +64,14 @@ const config = {
 
 ## Step 5: Generate NFT Properties
 
-Execute following commands in the terminal. This script will generate a unique set of NFT properties for each NFT.
+Execute following commands in the terminal. The `nft-generator.js` script will generate a unique set of NFT properties for each NFT.
 
 ```
 npm install
 node nft-generator.js
 ```
+
+This script will create `generated_nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT, and `schema.json` - the protobuf schema file with programmatic description of properties that will be later used to mint the collection.
 
 ## Step 6: Generate NFT Images
 
@@ -79,7 +81,61 @@ This script will generate NFT images from image parts using the NFT properties g
 node image-generator.js
 ```
 
-## Step 7: Create Collection
+This script will add NFT images to `generated_nfts` folder.
+
+## Step 7: Host images on IPFS
+
+1. Install IPFS daemon on your computer:
+https://docs.ipfs.io/install/command-line/#official-distributions
+
+2. ipfs init
+
+3. ipfs add -r generated_nfts/
+
+```
+$ ipfs add -r generated_nfts/
+added Qmd2uwLhrt8EvBE4xuMMFd9vbT97yzeeRtGx2aqJxAoD8S generated_nfts/nft_image_1.png
+added Qmd2uwLhrt8EvBE4xuMMFd9vbT97yzeeRtGx2aqJxAoD8S generated_nfts/nft_image_10.png
+added QmaZaiwabE48ijXhp4dUKfA6NVE4ef9gsmKX2Ws5RH4deF generated_nfts/nft_image_11.png
+added QmbXbxAL5S3kdDTi3JRyB8vGu3FvrDs9gqVzBNUWqBpAjV generated_nfts/nft_image_12.png
+added QmTqyPWPwXex1UaCLFtwcFKcAp8V4mieovNqpDDA2jz9Lo generated_nfts/nft_image_13.png
+added QmQQFfbLLk8aQ69HBanCtMM9dCd36JqoQzaUCLGMbhytze generated_nfts/nft_image_14.png
+added QmPtdJXgbZwxCzdtxWshx1vVyC3oQfeNNpTgrT74tHzir2 generated_nfts/nft_image_15.png
+added QmYkCtwQaoM3bydNCwBB9ajSaxvJoohMPgAfGQSX3HkcjB generated_nfts/nft_image_16.png
+added QmNbmdg4yBeZghZgGfRptTGZZ3kdsAm81C3ivQUsx1353W generated_nfts/nft_image_17.png
+added Qme2DStpDHgh3GGMY7hVMXGvzgCWSK2fG8twudfvyRf82s generated_nfts/nft_image_18.png
+added Qmd29iPiLHeWE6NRc8vumDqimJNFzankdDdRa9gmrQZZ7B generated_nfts/nft_image_19.png
+added QmNbmdg4yBeZghZgGfRptTGZZ3kdsAm81C3ivQUsx1353W generated_nfts/nft_image_2.png
+added QmbXbxAL5S3kdDTi3JRyB8vGu3FvrDs9gqVzBNUWqBpAjV generated_nfts/nft_image_20.png
+added QmRLsfhos7dLqzd4Y6PijgvmTqRfJLb8nafjkteamUEkSW generated_nfts/nft_image_3.png
+added QmYkCtwQaoM3bydNCwBB9ajSaxvJoohMPgAfGQSX3HkcjB generated_nfts/nft_image_4.png
+added QmQQFfbLLk8aQ69HBanCtMM9dCd36JqoQzaUCLGMbhytze generated_nfts/nft_image_5.png
+added Qmcisrkhza4onXAdqeVnJF9Zn14uqZr2X4dPNmAM9JYB83 generated_nfts/nft_image_6.png
+added QmbwdrrWgNo2Vpsu7vCkTZTTKHcKE1f5LTrwgEzX1YRtAa generated_nfts/nft_image_7.png
+added QmPtdJXgbZwxCzdtxWshx1vVyC3oQfeNNpTgrT74tHzir2 generated_nfts/nft_image_8.png
+added Qme9BDZ9k5m3dcvbrgbQjsuE6NdTtkVxVMuCkczsVMxNnK generated_nfts/nft_image_9.png
+added QmS4Sskhvuepykb5FUNpsKbXY1qgcY4efFbcBjUyUvN39c generated_nfts/nfts.json
+added QmZAYT7xTJWrU3mPFZrfAAaAaL4JhvtHRbh25UrtkBcUH6 generated_nfts/schema.json
+added QmPWcNUZmnitYKmvPXXGL6mjyGdXJLtk3yJDMABjDWQWoM generated_nfts
+```
+
+Look for the folder hash: QmPWcNUZmnitYKmvPXXGL6mjyGdXJLtk3yJDMABjDWQWoM
+
+4. Test it after 10-15 minutes:
+
+https://ipfs-gateway.usetech.com/ipfs/<your folder hash>
+https://ipfs.infura.io/ipfs/<your folder hash>
+
+5. How to make IPFS work faster:
+
+Install IPFS gateway:
+
+ipfs daemon
+
+Open:
+http://localhost:8080/ipfs/QmPWcNUZmnitYKmvPXXGL6mjyGdXJLtk3yJDMABjDWQWoM/nft_image_1.png
+
+## Step 8: Create Collection
 
 At this step you will create the NFT collection and set it's properties on-chain.
 
@@ -96,6 +152,14 @@ async function createCollectionAsync(api, signer) {
 }
 ```
 
+Second, configure the image path here in `create_collection.js` file:
+
+```
+  console.log("=== Set offchain schema ===");
+  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
+  await submitTransaction(owner, tx3);
+```
+
 Now you are ready to execute the blockchain transactions:
 ```
 node create_collection.js
@@ -106,13 +170,13 @@ Note the output with collection ID:
 
 ```
 
-## Step 8: 
+## Step 9: 
 
 Now it's time to mint NFTs. Execute this script and wait for it to complete:
 ```
 node create_items.js
 ```
 
-## Step 9: See your NFTs in the wallet
+## Step 10: See your NFTs in the wallet
 
 Open [https://wallet.unique.network](https://wallet.unique.network) and enjoy your new collection!
