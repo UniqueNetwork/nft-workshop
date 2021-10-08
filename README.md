@@ -1,10 +1,23 @@
-# Create your own NFT collection Workshop
+# Create your own NFT Collection Workshop
 
 ## Step 1: Design image parts
 
-The image parts should generally include some background and combinable parts with transparent background.
+The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example the background images are stoted in `ball*.png` files like this one:
+
+![images/ball1.png](images/ball1.png)
+
+If you have three background images, store them respectively in `images/ball1.png`, `images/ball2.png`, `images/ball3.png`, and `images/ball4.png` files.
+
+The combinable parts are stored as `car*.png` and `heart*.png`, so when a particular combination of parts is composed, it results in a unqiue NFT image:
+
+![doc/combine.png](doc/combine.png)
+
+The combinable parts are also stored in numbered files like `images/car1.png`, `images/car2.png` ... and `images/heart1.png`, `images/heart2.png` ...
+
 
 ## Step 2: Describe NFT traits
+
+Generally, combinable parts produce NFT traits. For example, if the `car1.png` image is used to generate the NFT image, it will have `Blue car` trait. Here is how to code this:
 
 The `attributes.js` file should describe traits of your NFT collection. Each trait should have 
 
@@ -21,6 +34,8 @@ const attributes = [
   ];
 ```
 
+The order in which traits come is important: It is used as a z-order when images are combined. The traits (parts) that come lower in the list of traits will be added to the image later, so they will cover up parts that come earlier.
+
 ## Step 3: Prepare Substrate Address with Seed
 
 If you have never worked with Substrate addresses and seeds before, use these steps from the Marketplace README guide:
@@ -30,7 +45,7 @@ If you have never worked with Substrate addresses and seeds before, use these st
   * [Get Unique Tokens](https://github.com/UniqueNetwork/marketplace-docker#step-3---get-unique)
 
 
-## Step 4: Create your Collection Owner Seed
+## Step 4: Configure Collection Owner Seed
 
 Once you have the Seed Phrase ready, create `config.js` from `config.example.js` file and add your Seed Phrase to the `config.js` in `ownerSeed` field (replace `//Alice`):
 
@@ -58,7 +73,7 @@ node nft-generator.js
 
 ## Step 6: Generate NFT Images
 
-This script will generate NFT images from image parts using the NFT properties generated on the previous step.
+This script will generate NFT images from image parts using the NFT properties generated in the previous step.
 
 ```
 node image-generator.js
@@ -84,6 +99,11 @@ async function createCollectionAsync(api, signer) {
 Now you are ready to execute the blockchain transactions:
 ```
 node create_collection.js
+```
+
+Note the output with collection ID: 
+```
+
 ```
 
 ## Step 8: 
