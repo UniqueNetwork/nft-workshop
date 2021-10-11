@@ -46,20 +46,20 @@ function encode(_traits) {
 };
 
 async function main() {
-  // // Initialise the provider to connect to the node
-  // const wsProvider = new WsProvider(config.wsEndpoint);
-  // const rtt = JSON.parse(fs.readFileSync("./runtime_types.json"));
+  // Initialise the provider to connect to the node
+  const wsProvider = new WsProvider(config.wsEndpoint);
+  const rtt = JSON.parse(fs.readFileSync("./runtime_types.json"));
 
-  // // Create the API and wait until ready
-  // const api = await ApiPromise.create({ 
-  //   provider: wsProvider,
-  //   types: rtt
-  // });
+  // Create the API and wait until ready
+  const api = await ApiPromise.create({ 
+    provider: wsProvider,
+    types: rtt
+  });
 
-  // // Owners's keypair
-  // const keyring = new Keyring({ type: 'sr25519' });
-  // const owner = keyring.addFromUri(config.ownerSeed);
-  // console.log("Collection owner address: ", owner.address);
+  // Owners's keypair
+  const keyring = new Keyring({ type: 'sr25519' });
+  const owner = keyring.addFromUri(config.ownerSeed);
+  console.log("Collection owner address: ", owner.address);
 
   // Create items
   const startItem = 1;
@@ -84,8 +84,8 @@ async function main() {
     const payload = deserializeNft(schema, buffer, "en");
     console.log("Deserialized NFT properties:", payload);
 
-    // await createItemAsync(api, owner, buffer);
-    // console.log("Item created");
+    await createItemAsync(api, owner, buffer);
+    console.log("Item created");
   }
 
 }

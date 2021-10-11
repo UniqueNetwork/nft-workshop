@@ -80,7 +80,7 @@ async function main() {
 
   // Set onchain schema
   console.log("=== Set const on-chain schema ===");
-  const schema = fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`);
+  const schema = (fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`)).toString();
   const tx4 = api.tx.nft.setConstOnChainSchema(collectionId, strToUTF16(schema));
   await submitTransaction(owner, tx4);
 
@@ -88,7 +88,7 @@ async function main() {
   console.log("=== Set schema version ===");
   const tx2 = api.tx.nft.setSchemaVersion(collectionId, 'ImageURL');
   await submitTransaction(owner, tx2);
- 
+
   console.log("=== Set offchain schema ===");
   const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
   await submitTransaction(owner, tx3);
