@@ -176,6 +176,7 @@ A typical terminal output for this script should look like follows:
 
 <details>
   <summary>Click to expand</summary>
+
 ```
 Collection owner address:  5EKt48hu4vPTUGy2Fgmb8M5YCP8WnX6SNg4Pb2ZnCUXhqVFU
 === Create collection ===
@@ -208,6 +209,7 @@ Transaction included at blockHash 0x404a7195c7899d870f215e853a39bba097f5880728a4
 Current tx status is {"finalized":"0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3"}
 Transaction finalized at blockHash 0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3
 ```  
+
 </details>
 
 Note the output of the collection ID: 
@@ -234,6 +236,7 @@ A typical terminal output for this script should look like follows:
 
 <details>
   <summary>Click to expand</summary>
+
 ```
 Collection owner address:  5EKt48hu4vPTUGy2Fgmb8M5YCP8WnX6SNg4Pb2ZnCUXhqVFU
 =================================================
@@ -251,6 +254,7 @@ Transaction finalized at blockHash 0x576883a8b04e4e530538abdd9492843fa087efdee46
 Item created
 ...
 ```
+
 </details>
 
 ## Step 10: See your NFTs in the wallet
