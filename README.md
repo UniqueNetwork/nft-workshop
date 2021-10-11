@@ -261,7 +261,7 @@ Item created
 
 Open [https://wallet.unique.network](https://wallet.unique.network) and enjoy your new collection!
 
-## Step 11: Start your own marketplace to trade your collection
+## Step 11 (Optional): Start your own marketplace to trade your collection
 
 Follow this guide to start the marketplace (and remember to configure the collection ID in fronend .env file):
 
