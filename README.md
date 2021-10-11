@@ -12,7 +12,7 @@ This tutorial is created for technologically skillful people (e.g. game develope
 
 ## Step 1: Design image parts
 
-The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example the background images are stoted in `ball*.png` files like this one:
+The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example the background images are stored in `ball*.png` files like this one:
 
 ![images/ball1.png](images/ball1.png)
 
