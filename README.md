@@ -135,13 +135,13 @@ Look for the folder hash that is usually output last: `QmPWcNUZmnitYKmvPXXGL6mjy
 ipfs daemon
 ```
 
-Replace `<your folder hash>` with your folder hash and open this URL to test your local IPFS gateway:
-http://localhost:8080/ipfs/<your folder hash>/nft_image_1.png
+Replace `your_folder_hash` with your folder hash and open this URL to test your local IPFS gateway:
+http://localhost:8080/ipfs/your_folder_hash/nft_image_1.png
 
 It will take IPFS up to a few days to propagate your files. After this period of time they will be visible on other IPFS gateways too:
 
-https://ipfs-gateway.usetech.com/ipfs/<your folder hash>
-https://ipfs.infura.io/ipfs/<your folder hash>
+* https://ipfs-gateway.usetech.com/ipfs/your_folder_hash
+* https://ipfs.infura.io/ipfs/your_folder_hash
 
 ## Step 8: Create Collection
 
