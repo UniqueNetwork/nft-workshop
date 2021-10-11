@@ -1,5 +1,15 @@
 # Tutorial: Create your own NFT Collection
 
+## Who is this tutarial for
+
+This tutorial is created for technologically skillful people (e.g. game developers) who desire to create NFT collections from auto-generated images such as Substrapunks, Crypto-kitties, etc.
+
+## Prerequisites
+
+  * OS: Ubuntu 18.04 or 20.04
+  * NodeJS 16 or up
+  * Image editor of your choice
+
 ## Step 1: Design image parts
 
 The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example the background images are stoted in `ball*.png` files like this one:
