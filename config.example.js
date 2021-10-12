@@ -6,7 +6,9 @@ const config = {
     outputFolder: "./generated_nfts",
     outputJSON: "nfts.json",
     outputSchema: "schema.json",
-    desiredCount: 20
+    desiredCount: 20,
+
+    collectionId: 209
 }
 
 module.exports = config;
