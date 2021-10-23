@@ -15,8 +15,6 @@ function submitTransaction(sender, transaction) {
     
         if (result.status.isInBlock) {
           console.log(`Transaction included at blockHash ${result.status.asInBlock}`);
-        } else if (result.status.isFinalized) {
-          console.log(`Transaction finalized at blockHash ${result.status.asFinalized}`);
           resolve();
           unsub();
         }
@@ -38,10 +36,7 @@ async function createItemAsync(api, signer, buffer) {
 }
 
 
-function encode(_traits) {
-  const payload = {
-    traits: _traits
-  };    
+function encode(payload) {
   return serializeNft(schema, payload);
 };
 
@@ -67,17 +62,14 @@ async function main() {
     console.log(`=================================================\nCreating item ${i} from attributes [${faces[i-1]}]`);
 
     // Create traits from attributes
-    let traits = [];
-    let attrOffset = 0;    
-    for (let j=0; j<attributes.length; j++) {
-      if (faces[i-1][j] != 0) {
-        traits.push(faces[i-1][j] + attrOffset - 1);
-      }
-      attrOffset += attributes[j].count;
-    }
-    console.log("Traits:", traits);
+    const nft = {
+      Name: i-1,
+      Color: faces[i-1][1] + 29,
+      Author: 33
+    };
+    console.log("Original payload:", nft);
 
-    const buffer = encode(traits);
+    const buffer = encode(nft);
     console.log("Serialized NFT properties:", Array.from(buffer));
 
     // Test

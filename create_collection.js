@@ -48,9 +48,9 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "NFTWorkshop";
-  const description = "NFT Workshop collection";
-  const tokenPrefix = "TMP";
+  const name = "Matter";
+  const description = "These photographs are the very first NFTs released by the Norwegian artist Fredrik Tjaerandsen. They depict dynamic, performative latex garments during a rehearsal for the 2020 Fashion in Motion show at the Victoria & Albert Museum in London.";
+  const tokenPrefix = "FTM";
   const modeprm = {nft: null};
 
   const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
@@ -90,7 +90,7 @@ async function main() {
   await submitTransaction(owner, tx2);
 
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
+  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `https://ipfs.artpool.xyz/ipfs/QmPvebt3H7s54eE4VRG6eJgf639GzxB8Tkg19nXEiGL31V/image{id}.jpg`);
   await submitTransaction(owner, tx3);
 }
 
