@@ -25,7 +25,7 @@ async function saveFaceByAttributes(arr, outFile) {
     if (arr[i] > 0) {
       const img = {
         src: `${config.imagePartsFolder}/${attributes[i].name}${arr[i]}.png`,
-        offsetX: (i == 0) ? 0 : -400,
+        offsetX: (i == 0) ? 0 : -1706, // <-------- Put your image width here
         offsetY: 0,
       }
       images.push(img);

@@ -85,6 +85,27 @@ This script will create `generated_nfts` folder, and save two files: `nfts.json`
 
 ## Step 6: Generate NFT Images
 
+First, set the correct image width in the `saveFaceByAttributes` method in `image-generator.js` file as shown below so that the image merging library knows how to offset image parts:
+```
+async function saveFaceByAttributes(arr, outFile) {
+  let images = [];
+
+  for (let i=0; i < arr.length; i++) {
+    if (arr[i] > 0) {
+      const img = {
+        src: `${config.imagePartsFolder}/${attributes[i].name}${arr[i]}.png`,
+        offsetX: (i == 0) ? 0 : -1706, // <-------- Put your image width here
+        offsetY: 0,
+      }
+      images.push(img);
+    }
+  }
+
+  // Generate image
+  await mergeImagesToPng(images, outFile);
+}
+```
+
 This script will generate NFT images from image parts using the NFT properties generated in the previous step.
 
 ```
