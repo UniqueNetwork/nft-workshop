@@ -212,43 +212,44 @@ A typical terminal output for this script should look like follows:
   <summary>Click to expand</summary>
 
 ```
-Collection owner address:  5EKt48hu4vPTUGy2Fgmb8M5YCP8WnX6SNg4Pb2ZnCUXhqVFU
+$ node create_collection.js 
+Collection owner address:  5E1WRCxeRcAv5pxgTTHJTT8dWCBbL2DgPQxK2FESSC42tBiy
 === Create collection ===
 Current tx status is Ready
 Current tx status is {"broadcast":["12D3KooWNE7E1TumzsHWJepWxfXPGB1oomc5dyo9WZx3RgNaD8Lm","12D3KooWDbTrD4HXBwCmSqDMhMtwTaHFHToE1QDPLXL1DCqSjDaa","12D3KooWG61UGKRfLs2vTnoKtCZECDmBrABXRs8AqttGbuyAfmRY","12D3KooWGaW9j9SEAXSkawtcJBQVyrkF2SiapvxiJf7EwcyzqCKc"]}
-Current tx status is {"inBlock":"0x56bd99120e99b8cb6f5780e88965e1c87c68d019184adf3a4e2bcd7f3438b816"}
-Transaction included at blockHash 0x56bd99120e99b8cb6f5780e88965e1c87c68d019184adf3a4e2bcd7f3438b816
-Current tx status is {"finalized":"0x56bd99120e99b8cb6f5780e88965e1c87c68d019184adf3a4e2bcd7f3438b816"}
-Transaction finalized at blockHash 0x56bd99120e99b8cb6f5780e88965e1c87c68d019184adf3a4e2bcd7f3438b816
-Collection created: 209
+Current tx status is {"inBlock":"0xded1c781f928e38b6805139aba421f5def1737b007fcf1aebf3b90b3d7cf854d"}
+Transaction included at blockHash 0xded1c781f928e38b6805139aba421f5def1737b007fcf1aebf3b90b3d7cf854d
+Current tx status is {"finalized":"0xded1c781f928e38b6805139aba421f5def1737b007fcf1aebf3b90b3d7cf854d"}
+Transaction finalized at blockHash 0xded1c781f928e38b6805139aba421f5def1737b007fcf1aebf3b90b3d7cf854d
+Collection created: 224
 === Set const on-chain schema ===
 Current tx status is Ready
 Current tx status is {"broadcast":["12D3KooWNE7E1TumzsHWJepWxfXPGB1oomc5dyo9WZx3RgNaD8Lm","12D3KooWDbTrD4HXBwCmSqDMhMtwTaHFHToE1QDPLXL1DCqSjDaa","12D3KooWG61UGKRfLs2vTnoKtCZECDmBrABXRs8AqttGbuyAfmRY","12D3KooWGaW9j9SEAXSkawtcJBQVyrkF2SiapvxiJf7EwcyzqCKc"]}
-Current tx status is {"inBlock":"0xb60fc964a3d19643c7590b7643547da649039d97acb8bb7e62b03fe7bdaa1d6a"}
-Transaction included at blockHash 0xb60fc964a3d19643c7590b7643547da649039d97acb8bb7e62b03fe7bdaa1d6a
-Current tx status is {"finalized":"0xb60fc964a3d19643c7590b7643547da649039d97acb8bb7e62b03fe7bdaa1d6a"}
-Transaction finalized at blockHash 0xb60fc964a3d19643c7590b7643547da649039d97acb8bb7e62b03fe7bdaa1d6a
+Current tx status is {"inBlock":"0xcf2ea835a7282de1e4713b8d0e030d5024fa872976b8d5ae3b97daedde5d9a6a"}
+Transaction included at blockHash 0xcf2ea835a7282de1e4713b8d0e030d5024fa872976b8d5ae3b97daedde5d9a6a
+Current tx status is {"finalized":"0xcf2ea835a7282de1e4713b8d0e030d5024fa872976b8d5ae3b97daedde5d9a6a"}
+Transaction finalized at blockHash 0xcf2ea835a7282de1e4713b8d0e030d5024fa872976b8d5ae3b97daedde5d9a6a
 === Set schema version ===
 Current tx status is Ready
 Current tx status is {"broadcast":["12D3KooWNE7E1TumzsHWJepWxfXPGB1oomc5dyo9WZx3RgNaD8Lm","12D3KooWDbTrD4HXBwCmSqDMhMtwTaHFHToE1QDPLXL1DCqSjDaa","12D3KooWG61UGKRfLs2vTnoKtCZECDmBrABXRs8AqttGbuyAfmRY","12D3KooWGaW9j9SEAXSkawtcJBQVyrkF2SiapvxiJf7EwcyzqCKc"]}
-Current tx status is {"inBlock":"0xad525909d49ba62453e8571c2610ac7fa5fd9d52f3bbeffbbb3c944bad215a1c"}
-Transaction included at blockHash 0xad525909d49ba62453e8571c2610ac7fa5fd9d52f3bbeffbbb3c944bad215a1c
-Current tx status is {"finalized":"0xad525909d49ba62453e8571c2610ac7fa5fd9d52f3bbeffbbb3c944bad215a1c"}
-Transaction finalized at blockHash 0xad525909d49ba62453e8571c2610ac7fa5fd9d52f3bbeffbbb3c944bad215a1c
+Current tx status is {"inBlock":"0x7d936ec59a6f8aca235fb9d6ef7646196e9fd146e5774e60d9b68f079e2df047"}
+Transaction included at blockHash 0x7d936ec59a6f8aca235fb9d6ef7646196e9fd146e5774e60d9b68f079e2df047
+Current tx status is {"finalized":"0x7d936ec59a6f8aca235fb9d6ef7646196e9fd146e5774e60d9b68f079e2df047"}
+Transaction finalized at blockHash 0x7d936ec59a6f8aca235fb9d6ef7646196e9fd146e5774e60d9b68f079e2df047
 === Set offchain schema ===
 Current tx status is Ready
 Current tx status is {"broadcast":["12D3KooWNE7E1TumzsHWJepWxfXPGB1oomc5dyo9WZx3RgNaD8Lm","12D3KooWDbTrD4HXBwCmSqDMhMtwTaHFHToE1QDPLXL1DCqSjDaa","12D3KooWG61UGKRfLs2vTnoKtCZECDmBrABXRs8AqttGbuyAfmRY","12D3KooWGaW9j9SEAXSkawtcJBQVyrkF2SiapvxiJf7EwcyzqCKc"]}
-Current tx status is {"inBlock":"0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3"}
-Transaction included at blockHash 0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3
-Current tx status is {"finalized":"0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3"}
-Transaction finalized at blockHash 0x404a7195c7899d870f215e853a39bba097f5880728a4111bde866ca7f877c9e3
+Current tx status is {"inBlock":"0x175c58d6ad8685547aea40e09c10a091b8436cdffb1ac60d2de051d72fa2cbf5"}
+Transaction included at blockHash 0x175c58d6ad8685547aea40e09c10a091b8436cdffb1ac60d2de051d72fa2cbf5
+Current tx status is {"finalized":"0x175c58d6ad8685547aea40e09c10a091b8436cdffb1ac60d2de051d72fa2cbf5"}
+Transaction finalized at blockHash 0x175c58d6ad8685547aea40e09c10a091b8436cdffb1ac60d2de051d72fa2cbf5
 ```  
 
 </details>
 
 Note the output of the collection ID: 
 ```
-Collection created: 209
+Collection created: 224
 ```
 
 ## Step 9: Mint NFTs
@@ -257,7 +258,7 @@ Collection created: 209
 
 ```
 ...
-    collectionId: 209
+    collectionId: 224
 ...
 ```
 
@@ -272,19 +273,30 @@ A typical terminal output for this script should look like follows:
   <summary>Click to expand</summary>
 
 ```
-Collection owner address:  5EKt48hu4vPTUGy2Fgmb8M5YCP8WnX6SNg4Pb2ZnCUXhqVFU
+$ node create_items.js 
+Collection owner address:  5E1WRCxeRcAv5pxgTTHJTT8dWCBbL2DgPQxK2FESSC42tBiy
 =================================================
-Creating item 1 from attributes [2,1,0]
-Traits: [ 1, 4 ]
-Serialized NFT properties: [ 10, 2, 1, 4 ]
-message: NFTMeta { traits: [ 1, 4 ] }
-Deserialized NFT properties: { traits: [ 'Green ball', 'Blue car' ] }
+Creating item 1 from attributes [1,1,2,3,3,3]
+Traits: [ 0, 1, 5, 9, 12, 17 ]
+Serialized NFT properties: [
+  10, 6,  0,  1,
+   5, 9, 12, 17
+]
+message: NFTMeta { traits: [ 0, 1, 5, 9, 12, 17 ] }
+Deserialized NFT properties: {
+  traits: [
+    'Regular Head',
+    'Normal Eyes',
+    'Greyish Brows',
+    'Droopy Nose',
+    'Messy Hair',
+    'Wide Smile'
+  ]
+}
 Current tx status is Ready
 Current tx status is {"broadcast":["12D3KooWNE7E1TumzsHWJepWxfXPGB1oomc5dyo9WZx3RgNaD8Lm","12D3KooWDbTrD4HXBwCmSqDMhMtwTaHFHToE1QDPLXL1DCqSjDaa","12D3KooWG61UGKRfLs2vTnoKtCZECDmBrABXRs8AqttGbuyAfmRY","12D3KooWGaW9j9SEAXSkawtcJBQVyrkF2SiapvxiJf7EwcyzqCKc"]}
-Current tx status is {"inBlock":"0x576883a8b04e4e530538abdd9492843fa087efdee46868d570ee369ab21fd4db"}
-Transaction included at blockHash 0x576883a8b04e4e530538abdd9492843fa087efdee46868d570ee369ab21fd4db
-Current tx status is {"finalized":"0x576883a8b04e4e530538abdd9492843fa087efdee46868d570ee369ab21fd4db"}
-Transaction finalized at blockHash 0x576883a8b04e4e530538abdd9492843fa087efdee46868d570ee369ab21fd4db
+Current tx status is {"inBlock":"0x069e2f39d4593e4cd46b0aa92c68abfd122f1b350a0d39a9b4ddc365814d1cb0"}
+Transaction included at blockHash 0x069e2f39d4593e4cd46b0aa92c68abfd122f1b350a0d39a9b4ddc365814d1cb0
 Item created
 ...
 ```
