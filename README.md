@@ -14,7 +14,7 @@ This tutorial is created for technologically skillful people (e.g. game develope
 
 The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example there is a single background image that is stored in `head1.png` file:
 
-![images/head1.png](images/head1.png)
+<img src="/images/head1.png" width="300">
 
 If you had three background images, store them respectively in `images/head1.png`, `images/head2.png`, and `images/head3.png` files.
 
