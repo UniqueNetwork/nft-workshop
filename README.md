@@ -12,39 +12,42 @@ This tutorial is created for technologically skillful people (e.g. game develope
 
 ## Step 1: Design image parts
 
-The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example the background images are stored in `ball*.png` files like this one:
+The image parts should generally include some background and combinable parts with transparent background. Store them in `images` folder. In this example there is a single background image that is stored in `head1.png` file:
 
-![images/ball1.png](images/ball1.png)
+![images/head1.png](images/head1.png)
 
-If you have three background images, store them respectively in `images/ball1.png`, `images/ball2.png`, `images/ball3.png`, and `images/ball4.png` files.
+If you had three background images, store them respectively in `images/head1.png`, `images/head2.png`, and `images/head3.png` files.
 
-The combinable parts are stored as `car*.png` and `heart*.png`, so when a particular combination of parts is composed, it results in a unqiue NFT image:
+The combinable parts are stored as `eye*.png`, `brow*.png`, `nose*.png`, `hair*.png`, and `mouth*.png`, so when a particular combination of parts is composed, it results in a unqiue NFT image:
 
 ![doc/combine.png](doc/combine.png)
 
-The combinable parts are also stored in numbered files like `images/car1.png`, `images/car2.png` ... and `images/heart1.png`, `images/heart2.png` ...
+The combinable parts are also stored in numbered files like `images/eye1.png`, `images/eye2.png` ... and `images/nose1.png`, `images/nose2.png` ...
 
 
 ## Step 2: Describe NFT traits
 
-Generally, combinable parts produce NFT traits. For example, if the `car1.png` image is used to generate the NFT image, it will have `Blue car` trait. Here is how to code this:
+Generally, combinable parts produce NFT traits. For example, if the `nose1.png` image is used to generate the NFT image, it will have `Snub Nose` trait. Here is how to code this:
 
 The `attributes.js` file should describe traits of your NFT collection. Each trait should have 
 
-  * A `name` field that is used as a file name prefix for accessing your NFT part images. For example, all "ball" images are kept in files like `images/ball1.png`, `images/ball2.png`, etc.
-  * Number of possible trait values in `count` field. In case of the `ball' part it is equal to the total number of `ball*.png` images
+  * A `name` field that is used as a file name prefix for accessing your NFT part images. For example, all "nose" images are kept in files like `images/nose1.png`, `images/nose2.png`, etc.
+  * Number of possible trait values in `count` field. In case of the `nose' part it is equal to the total number of `nose*.png` images, i.e. 3 (three)
   * A `required` field basically tells the image generator that a certain trait should always be present or not
-  * The `attrNames` field contains trait names. For example, the `images/car1.png` adds a Blue Car to the NFT.
+  * The `attrNames` field contains trait names. For example, the `images/nose1.png` adds a Snub Nose to the NFT.
 
 ```
 const attributes = [
-    { name: "ball",   count: 4, required: true,  attrNames: ["Blue ball", "Green ball", "Red ball", "Black ball"] },
-    { name: "car",    count: 3, required: false, attrNames: ["Blue car", "Red car", "Yellow car"] },
-    { name: "heart",  count: 2, required: false, attrNames: ["Red heart", "Blue heart"] }
+    { name: "head",   count: 1, required: true, attrNames: ["Regular Head"] },
+    { name: "eye",    count: 3, required: true, attrNames: ["Normal Eyes", "Tired Eyes", "Brused Eyes"] },
+    { name: "brow",   count: 3, required: true, attrNames: ["Thick Brows", "Greyish Brows", "Flat Brows"] },
+    { name: "nose",   count: 3, required: true, attrNames: ["Snub Nose", "Button Nose", "Droopy Nose"] },
+    { name: "hair",   count: 5, required: true, attrNames: ["Normal Hair", "Hipster Style", "Messy Hair", "Overdue for Haircut", "Bald Patches"] },
+    { name: "mouth",  count: 3, required: true, attrNames: ["Smirk", "Regular Smile", "Wide Smile"] }
   ];
 ```
 
-The order in which traits come is important: It is used as a z-order when images are combined. The traits (parts) that come lower in the list of traits will be added to the image later, so they will cover up parts that come earlier.
+The order in which traits come is important: It is used as a z-order when images are merged. The traits (parts) that come lower in the list of traits will be added to the image later, so they will cover up parts that come earlier.
 
 ## Step 3: Prepare Substrate Address with Seed
 
