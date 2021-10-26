@@ -1,6 +1,6 @@
 # Tutorial: Create your own NFT Collection
 
-## Who is this tutarial for
+## Who is this tutorial for
 
 This tutorial is created for technologically skillful people (e.g. game developers) who desire to create NFT collections from auto-generated images such as Substrapunks, Crypto-kitties, etc.
 
