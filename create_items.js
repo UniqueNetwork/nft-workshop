@@ -64,8 +64,10 @@ async function main() {
     // Create traits from attributes
     const nft = {
       Name: i-1,
-      Color: faces[i-1][1] + 29,
-      Author: 33
+      Iteration: faces[i-1][1] + 29,
+      Author: 33,
+      Format: 34,
+      "Video Link": i + 34
     };
     console.log("Original payload:", nft);
 

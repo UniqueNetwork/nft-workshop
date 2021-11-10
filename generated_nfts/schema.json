@@ -1,0 +1,107 @@
+{
+    "nested": {
+      "onChainMetaData": {
+        "nested": {
+          "NFTMeta": {
+            "fields": {
+              "Name": {
+                "id": 1,
+                "rule": "required",
+                "type": "HQName"
+              },
+              "Iteration": {
+                "id": 2,
+                "rule": "required",
+                "type": "HQIteration"
+              },
+              "Author": {
+                "id": 3,
+                "rule": "required",
+                "type": "HQAuthor"
+              },
+              "Format": {
+                "id": 4,
+                "rule": "required",
+                "type": "HQFormat"
+              },
+              "Video Link": {
+                "id": 5,
+                "rule": "required",
+                "type": "HQVideoLink"
+              }
+            }
+          },
+          "HQName": {
+            "options": {
+              "PROP_0":"{\"en\": \"Hypercube Space 3 #1/10\"}","PROP_1":"{\"en\": \"Hypercube Space 3 #2/10\"}","PROP_2":"{\"en\": \"Hypercube Space 3 #3/10\"}","PROP_3":"{\"en\": \"Hypercube Space 3 #4/10\"}","PROP_4":"{\"en\": \"Hypercube Space 3 #5/10\"}","PROP_5":"{\"en\": \"Hypercube Space 3 #6/10\"}","PROP_6":"{\"en\": \"Hypercube Space 3 #7/10\"}","PROP_7":"{\"en\": \"Hypercube Space 3 #8/10\"}","PROP_8":"{\"en\": \"Hypercube Space 3 #9/10\"}","PROP_9":"{\"en\": \"Hypercube Space 3 #10/10\"}","PROP_10":"{\"en\": \"Hypercube Space 3 Kusama #1/10\"}","PROP_11":"{\"en\": \"Hypercube Space 3 Kusama #2/10\"}","PROP_12":"{\"en\": \"Hypercube Space 3 Kusama #3/10\"}","PROP_13":"{\"en\": \"Hypercube Space 3 Kusama #4/10\"}","PROP_14":"{\"en\": \"Hypercube Space 3 Kusama #5/10\"}","PROP_15":"{\"en\": \"Hypercube Space 3 Kusama #6/10\"}","PROP_16":"{\"en\": \"Hypercube Space 3 Kusama #7/10\"}","PROP_17":"{\"en\": \"Hypercube Space 3 Kusama #8/10\"}","PROP_18":"{\"en\": \"Hypercube Space 3 Kusama #9/10\"}","PROP_19":"{\"en\": \"Hypercube Space 3 Kusama #10/10\"}","PROP_20":"{\"en\": \"Hypercube Space 3 Substrate #1/10\"}","PROP_21":"{\"en\": \"Hypercube Space 3 Substrate #2/10\"}","PROP_22":"{\"en\": \"Hypercube Space 3 Substrate #3/10\"}","PROP_23":"{\"en\": \"Hypercube Space 3 Substrate #4/10\"}","PROP_24":"{\"en\": \"Hypercube Space 3 Substrate #5/10\"}","PROP_25":"{\"en\": \"Hypercube Space 3 Substrate #6/10\"}","PROP_26":"{\"en\": \"Hypercube Space 3 Substrate #7/10\"}","PROP_27":"{\"en\": \"Hypercube Space 3 Substrate #8/10\"}","PROP_28":"{\"en\": \"Hypercube Space 3 Substrate #9/10\"}","PROP_29":"{\"en\": \"Hypercube Space 3 Substrate #10/10\"}"
+            },
+            "values": {
+              "PROP_0":0,"PROP_1":1,"PROP_2":2,"PROP_3":3,"PROP_4":4,"PROP_5":5,"PROP_6":6,"PROP_7":7,"PROP_8":8,"PROP_9":9,"PROP_10":10,"PROP_11":11,"PROP_12":12,"PROP_13":13,"PROP_14":14,"PROP_15":15,"PROP_16":16,"PROP_17":17,"PROP_18":18,"PROP_19":19,"PROP_20":20,"PROP_21":21,"PROP_22":22,"PROP_23":23,"PROP_24":24,"PROP_25":25,"PROP_26":26,"PROP_27":27,"PROP_28":28,"PROP_29":29
+            }
+          },
+          "HQIteration": {
+            "options": {
+              "PROP_30":"{\"en\": \"Original\"}","PROP_31":"{\"en\": \"Kusama\"}","PROP_32":"{\"en\": \"Substrate\"}"
+            },
+            "values": {
+              "PROP_30":30,"PROP_31":31,"PROP_32":32
+            }
+          },
+          "HQAuthor": {
+            "options": {
+              "PROP_33":"{\"en\": \"Özge Topçu\"}"
+            },
+            "values": {
+              "PROP_33":33
+            }
+          },
+          "HQFormat": {
+            "options": {
+              "PROP_34":"{\"en\": \"Video\"}"
+            },
+            "values": {
+              "PROP_34":34
+            }
+          },
+          "HQVideoLink": {
+            "options": {
+              "PROP_35":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video1.mp4\"}",
+              "PROP_36":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video2.mp4\"}",
+              "PROP_37":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video3.mp4\"}",
+              "PROP_38":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video4.mp4\"}",
+              "PROP_39":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video5.mp4\"}",
+              "PROP_40":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video6.mp4\"}",
+              "PROP_41":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video7.mp4\"}",
+              "PROP_42":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video8.mp4\"}",
+              "PROP_43":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video9.mp4\"}",
+              "PROP_44":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video10.mp4\"}",
+              "PROP_45":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video11.mp4\"}",
+              "PROP_46":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video12.mp4\"}",
+              "PROP_47":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video13.mp4\"}",
+              "PROP_48":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video14.mp4\"}",
+              "PROP_49":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video15.mp4\"}",
+              "PROP_50":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video16.mp4\"}",
+              "PROP_51":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video17.mp4\"}",
+              "PROP_52":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video18.mp4\"}",
+              "PROP_53":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video19.mp4\"}",
+              "PROP_54":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video20.mp4\"}",
+              "PROP_55":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video21.mp4\"}",
+              "PROP_56":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video22.mp4\"}",
+              "PROP_57":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video23.mp4\"}",
+              "PROP_58":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video24.mp4\"}",
+              "PROP_59":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video25.mp4\"}",
+              "PROP_60":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video26.mp4\"}",
+              "PROP_61":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video27.mp4\"}",
+              "PROP_62":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video28.mp4\"}",
+              "PROP_63":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video29.mp4\"}",
+              "PROP_64":"{\"en\": \"https://ipfs.artpool.xyz/ipfs/QmTGY1Xx5nWBpD35JSQWdweATU96QfSy21FztVEdTjrGih/hypercubespace_video30.mp4\"}"
+            },
+            "values": {
+              "PROP_35":35,"PROP_36":36,"PROP_37":37,"PROP_38":38,"PROP_39":39,"PROP_40":40,"PROP_41":41,"PROP_42":42,"PROP_43":43,"PROP_44":44,"PROP_45":45,"PROP_46":46,"PROP_47":47,"PROP_48":48,"PROP_49":49,"PROP_50":50,"PROP_51":51,"PROP_52":52,"PROP_53":53,"PROP_54":54,"PROP_55":55,"PROP_56":56,"PROP_57":57,"PROP_58":58,"PROP_59":59,"PROP_60":60,"PROP_61":61,"PROP_62":62,"PROP_63":63,"PROP_64":64
+            }
+          }
+
+        }
+      }
+    }
+}

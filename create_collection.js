@@ -48,9 +48,9 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "Matter";
-  const description = "These photographs are the very first NFTs released by the Norwegian artist Fredrik Tjaerandsen. They depict dynamic, performative latex garments during a rehearsal for the 2020 Fashion in Motion show at the Victoria & Albert Museum in London.";
-  const tokenPrefix = "FTM";
+  const name = "Hypercube Space3";
+  const description = "Fundraising initiative to allow HyperCube Space to host artists working with cutting edge technologies in the metaverse. 74 second video created in VR environment. Sound design @David McAulay";
+  const tokenPrefix = "HCUBE";
   const modeprm = {nft: null};
 
   const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
@@ -90,7 +90,7 @@ async function main() {
   await submitTransaction(owner, tx2);
 
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `https://ipfs.artpool.xyz/ipfs/QmPvebt3H7s54eE4VRG6eJgf639GzxB8Tkg19nXEiGL31V/image{id}.jpg`);
+  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `https://ipfs.artpool.xyz/ipfs/Qmdxoh4U8azYQUaQfpiXvWmEG4AVCWEduFD8n4RqYzsWAM/hypercubespace_gif{id}.gif`);
   await submitTransaction(owner, tx3);
 }
 
