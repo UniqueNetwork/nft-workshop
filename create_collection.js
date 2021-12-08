@@ -48,9 +48,9 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "Hypercube Space3";
-  const description = "Fundraising initiative to allow HyperCube Space to host artists working with cutting edge technologies in the metaverse. 74 second video created in VR environment. Sound design @David McAulay";
-  const tokenPrefix = "HCUBE";
+  const name = "PolkaDot Kings & Queens Ambassadors’ Badges";
+  const description = "Kusama Princes & Princesses and Polkadot Kings & Queens are a symbol of the Power of The Community and The Power of an Individual in this ecosystem. We are Decentralized but United by the ideal of building a new creative, decentralized and fairer world.";
+  const tokenPrefix = "PAB";
   const modeprm = {nft: null};
 
   const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
