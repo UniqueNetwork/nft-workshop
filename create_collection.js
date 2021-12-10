@@ -73,7 +73,7 @@ async function main() {
   const owner = keyring.addFromUri(config.ownerSeed);
   console.log("Collection owner address: ", owner.address);
 
-  // Create collection as owner
+  // // Create collection as owner
   console.log("=== Create collection ===");
   const collectionId = await createCollectionAsync(api, owner);
   console.log(`Collection created: ${collectionId}`);
@@ -85,14 +85,14 @@ async function main() {
   // const tx4 = api.tx.nft.setConstOnChainSchema(collectionId, strToUTF16(schema));
   // await submitTransaction(owner, tx4);
 
-  // Set offchain schema
-  console.log("=== Set schema version ===");
-  const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
-  await submitTransaction(owner, tx2);
+  // // Set offchain schema
+  // console.log("=== Set schema version ===");
+  // const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
+  // await submitTransaction(owner, tx2);
 
-  console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipfs/QmdgxocQzdseLhVqcDGUrSyJhq8bsiKqzGdUqzgj8j5zSt/image{id}.gif`);
-  await submitTransaction(owner, tx3);
+  // console.log("=== Set offchain schema ===");
+  // const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipfs/QmdgxocQzdseLhVqcDGUrSyJhq8bsiKqzGdUqzgj8j5zSt/image{id}.gif`);
+  // await submitTransaction(owner, tx3);
 }
 
 main().catch(console.error).finally(() => process.exit());
