@@ -53,6 +53,7 @@ async function createCollectionAsync(api, signer) {
   const tokenPrefix = "CHEL";
   const modeprm = {nft: null};
 
+  console.log(`=== Create collection ${name} ===`);
   const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
   return await submitTransaction(signer, tx);
 }
@@ -74,7 +75,6 @@ async function main() {
   console.log("Collection owner address: ", owner.address);
 
   // // Create collection as owner
-  console.log("=== Create collection ===");
   const collectionId = await createCollectionAsync(api, owner);
   console.log(`Collection created: ${collectionId}`);
   // const collectionId = 64;
