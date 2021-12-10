@@ -28,10 +28,10 @@ function submitTransaction(sender, transaction) {
 
 async function createItemAsync(api, signer, buffer) {
   const createData = {
-    NFT: { const_data: Array.from(buffer), variable_data: [] },
+    NFT: { constData: Array.from(buffer), variableData: [] },
   };
 
-  const tx = api.tx.nft.createItem(config.collectionId, signer.address, createData);
+  const tx = api.tx.unique.createItem(config.collectionId, {Substrate: signer.address}, createData);
   return await submitTransaction(signer, tx);
 }
 
@@ -43,12 +43,12 @@ function encode(payload) {
 async function main() {
   // Initialise the provider to connect to the node
   const wsProvider = new WsProvider(config.wsEndpoint);
-  const rtt = JSON.parse(fs.readFileSync("./runtime_types.json"));
 
   // Create the API and wait until ready
+  const defs = require('@unique-nft/types/definitions');
   const api = await ApiPromise.create({ 
     provider: wsProvider,
-    types: rtt
+    rpc: { unique: defs.unique.rpc }
   });
 
   // Owners's keypair
@@ -57,17 +57,14 @@ async function main() {
   console.log("Collection owner address: ", owner.address);
 
   // Create items
-  const startItem = 1;
+  const startItem = 2;
   for (let i=startItem; i<=config.desiredCount; i++) {
     console.log(`=================================================\nCreating item ${i} from attributes [${faces[i-1]}]`);
 
     // Create traits from attributes
     const nft = {
-      Name: i-1,
-      Iteration: faces[i-1][1] + 29,
-      Author: 33,
-      Format: 34,
-      "Video Link": i + 34
+      "Ambassador Name": faces[i-1][0],
+      "Badge Type": faces[i-1][1]
     };
     console.log("Original payload:", nft);
 
