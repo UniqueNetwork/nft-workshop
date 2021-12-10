@@ -48,9 +48,9 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "SubstraPunks";
-  const description = "First NFT collection in polkadot space";
-  const tokenPrefix = "PNK";
+  const name = "Chelobrick";
+  const description = "Unique NFT collection dedicated to Polkadot Decoded 2021";
+  const tokenPrefix = "CHEL";
   const modeprm = {nft: null};
 
   const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
