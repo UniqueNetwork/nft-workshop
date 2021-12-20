@@ -57,7 +57,7 @@ async function main() {
   console.log("Collection owner address: ", owner.address);
 
   // Create items
-  const startItem = 2;
+  const startItem = 5;
   for (let i=startItem; i<=config.desiredCount; i++) {
     console.log(`=================================================\nCreating item ${i} from attributes [${faces[i-1]}]`);
 

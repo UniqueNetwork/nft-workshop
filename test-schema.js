@@ -14,7 +14,7 @@ async function main() {
 
   // Test items
   const startItem = 1;
-  for (let i=startItem; i<=1; i++) {
+  for (let i=startItem; i<=23; i++) {
     console.log(`=================================================\nTesting item ${i} from attributes [${faces[i-1]}]`);
 
     const nft = {
