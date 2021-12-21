@@ -79,19 +79,19 @@ async function main() {
   // console.log(`Collection created: ${collectionId}`);
   const collectionId = config.collectionId;
 
-  // Set onchain schema
-  console.log("=== Set const on-chain schema ===");
-  const schema = (fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`)).toString();
-  const tx4 = api.tx.unique.setConstOnChainSchema(collectionId, strToUTF16(schema));
-  await submitTransaction(owner, tx4);
+  // // Set onchain schema
+  // console.log("=== Set const on-chain schema ===");
+  // const schema = (fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`)).toString();
+  // const tx4 = api.tx.unique.setConstOnChainSchema(collectionId, strToUTF16(schema));
+  // await submitTransaction(owner, tx4);
 
-  // Set offchain schema
-  console.log("=== Set schema version ===");
-  const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
-  await submitTransaction(owner, tx2);
+  // // Set offchain schema
+  // console.log("=== Set schema version ===");
+  // const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
+  // await submitTransaction(owner, tx2);
 
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipfs/QmfC8mWaXXagD9QrHSnm5ThtKdTQjxGVmzq6eSD4x6RQPv/image{id}.gif`);
+  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipns/QmTerFhVZ45pa8FLxkyStiqJrok7uQKCXWb91Bm7tY6SGE/image{id}.gif`);
   await submitTransaction(owner, tx3);
 }
 
