@@ -17,7 +17,7 @@ function getCreatedCollectionId(events) {
     // console.log(`    ${phase}: ${section}.${method}:: ${data}`);
     if (method == 'ExtrinsicSuccess') {
       success = true;
-    } else if ((section == 'nft')  && (method == 'CollectionCreated')) {
+    } else if ((section == 'common')  && (method == 'CollectionCreated')) {
       collectionId = parseInt(data[0].toString());
     }
   });
@@ -53,19 +53,20 @@ async function createCollectionAsync(api, signer) {
   const tokenPrefix = "AAA";
   const modeprm = {nft: null};
 
-  const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
+  console.log(`=== Create collection ${name} ===`);
+  const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
   return await submitTransaction(signer, tx);
 }
 
 async function main() {
   // Initialise the provider to connect to the node
   const wsProvider = new WsProvider(config.wsEndpoint);
-  const rtt = JSON.parse(fs.readFileSync("./runtime_types.json"));
 
   // Create the API and wait until ready
+  const defs = require('@unique-nft/types/definitions');
   const api = await ApiPromise.create({ 
     provider: wsProvider,
-    types: rtt
+    rpc: { unique: defs.unique.rpc }
   });
 
   // Owners's keypair
@@ -81,16 +82,16 @@ async function main() {
   // Set onchain schema
   console.log("=== Set const on-chain schema ===");
   const schema = (fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`)).toString();
-  const tx4 = api.tx.nft.setConstOnChainSchema(collectionId, strToUTF16(schema));
+  const tx4 = api.tx.unique.setConstOnChainSchema(collectionId, strToUTF16(schema));
   await submitTransaction(owner, tx4);
 
   // Set offchain schema
   console.log("=== Set schema version ===");
-  const tx2 = api.tx.nft.setSchemaVersion(collectionId, 'ImageURL');
+  const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
   await submitTransaction(owner, tx2);
 
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
+  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `http://ipfs-gateway.usetech.com/ipfs/Qmap7uz7JKZNovCdLfdDE3p4XA6shghdADS7EsHvLjL6jT/nft_image_{id}.png`);
   await submitTransaction(owner, tx3);
 }
 
