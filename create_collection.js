@@ -48,9 +48,9 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "NFTWorkshop";
-  const description = "NFT Workshop collection";
-  const tokenPrefix = "TMP";
+  const name = "Workaholics";
+  const description = "Workaholics test collection";
+  const tokenPrefix = "AAA";
   const modeprm = {nft: null};
 
   const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);

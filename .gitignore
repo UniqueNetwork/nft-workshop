@@ -104,5 +104,4 @@ dist
 .tern-port
 
 # Application specific
-/generated_nfts
 config.js

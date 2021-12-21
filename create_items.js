@@ -36,10 +36,7 @@ async function createItemAsync(api, signer, buffer) {
 }
 
 
-function encode(_traits) {
-  const payload = {
-    traits: _traits
-  };    
+function encode(payload) {
   return serializeNft(schema, payload);
 };
 
@@ -66,16 +63,18 @@ async function main() {
 
     // Create traits from attributes
     let traits = [];
-    let attrOffset = 0;    
-    for (let j=0; j<attributes.length; j++) {
-      if (faces[i-1][j] != 0) {
-        traits.push(faces[i-1][j] + attrOffset - 1);
-      }
-      attrOffset += attributes[j].count;
+    let offset = 0;
+    for (let j=0; j<6; j++) {
+      traits.push(faces[i-1][j] + offset - 1);
+      offset += attributes[j].count;
     }
-    console.log("Traits:", traits);
+    const nft = {
+      "Traits": traits,
+      "Workaholic Name": faces[i-1][6]
+    };
+    console.log("Original payload:", nft);
 
-    const buffer = encode(traits);
+    const buffer = encode(nft);
     console.log("Serialized NFT properties:", Array.from(buffer));
 
     // Test
