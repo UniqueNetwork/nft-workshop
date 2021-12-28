@@ -5,6 +5,7 @@ const {serializeNft, deserializeNft} = require('./protobuf.js');
 const faces = JSON.parse(fs.readFileSync(`${config.outputFolder}/${config.outputJSON}`));
 const schema = fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`);
 const attributes = require('./attributes');
+const delay = require('delay');
 
 function submitTransaction(sender, transaction) {
   return new Promise(async function(resolve, reject) {
@@ -40,6 +41,10 @@ function encode(payload) {
   return serializeNft(schema, payload);
 };
 
+async function getLastCreatedNFTId(api) {
+  return parseInt(await api.rpc.unique.lastTokenId(config.collectionId));
+}
+
 async function main() {
   // Initialise the provider to connect to the node
   const wsProvider = new WsProvider(config.wsEndpoint);
@@ -57,9 +62,14 @@ async function main() {
   console.log("Collection owner address: ", owner.address);
 
   // Create items
-  const startItem = 24;
+  const startItem = await getLastCreatedNFTId(api) + 1;
+
+  console.log(`WARNING: Will start with NFT ${startItem} in 10 seconds...`);
+  await delay(10000);
+
   for (let i=startItem; i<=config.desiredCount; i++) {
     console.log(`=================================================\nCreating item ${i} from attributes [${faces[i-1]}]`);
+    await delay(3000);
 
     // Create traits from attributes
     const nft = {
