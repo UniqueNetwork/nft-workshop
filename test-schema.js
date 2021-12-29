@@ -21,14 +21,14 @@ function toHexString(byteArray) {
 async function main() {
 
   // Test items
-  const startItem = 1;
-  for (let i=startItem; i<=2; i++) {
+  const startItem = 32;
+  for (let i=startItem; i<=32; i++) {
     console.log(`=================================================\nTesting item ${i} from attributes [${faces[i-1]}]`);
 
     const nft = {
-      "Ambassador Name": faces[i-1][0],
-      "Badge Type": faces[i-1][1]
+      "Badge Type": faces[i-1][1],
     };
+    if (faces[i-1][0].length > 0) nft["Ambassador Name"] = faces[i-1][0];
     console.log("Original payload:", nft);
 
     const buffer = encode(nft);

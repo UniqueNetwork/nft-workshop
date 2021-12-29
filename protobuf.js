@@ -46,7 +46,7 @@ function deserializeNft (schema, buffer, locale) {
   const objectItem = NFTMeta.toObject(message, {
     arrays: true, // populates empty arrays (repeated fields) even if defaults=false
     bytes: String, // bytes as base64 encoded strings
-    defaults: true, // includes default values
+    defaults: false, // includes default values
     enums: String, // enums as string names
     longs: String, // longs as strings (requires long.js)
     objects: true, // populates empty objects (map fields) even if defaults=false

@@ -27,12 +27,12 @@ function submitTransaction(sender, transaction) {
   });
 }
 
-async function createItemAsync(api, signer, buffer) {
+async function createItemAsync(api, signer, buffer, recipient) {
   const createData = {
     NFT: { constData: Array.from(buffer), variableData: [] },
   };
 
-  const tx = api.tx.unique.createItem(config.collectionId, {Substrate: signer.address}, createData);
+  const tx = api.tx.unique.createItem(config.collectionId, {Substrate: recipient}, createData);
   return await submitTransaction(signer, tx);
 }
 
@@ -67,15 +67,15 @@ async function main() {
   console.log(`WARNING: Will start with NFT ${startItem} in 10 seconds...`);
   await delay(10000);
 
-  for (let i=startItem; i<=config.desiredCount; i++) {
+  for (let i=startItem; i<=faces.length; i++) {
     console.log(`=================================================\nCreating item ${i} from attributes [${faces[i-1]}]`);
     await delay(3000);
 
     // Create traits from attributes
     const nft = {
-      "Ambassador Name": faces[i-1][0],
-      "Badge Type": faces[i-1][1]
+      "Badge Type": faces[i-1][1],
     };
+    if (faces[i-1][0].length > 0) nft["Ambassador Name"] = faces[i-1][0];
     console.log("Original payload:", nft);
 
     const buffer = encode(nft);
@@ -85,7 +85,7 @@ async function main() {
     const payload = deserializeNft(schema, buffer, "en");
     console.log("Deserialized NFT properties:", payload);
 
-    await createItemAsync(api, owner, buffer);
+    await createItemAsync(api, owner, buffer, faces[i-1][2] ? faces[i-1][2] : owner.address);
     console.log("Item created");
   }
 

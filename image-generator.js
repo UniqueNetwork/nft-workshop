@@ -11,6 +11,9 @@ function generateImages() {
       const dest = `./images/image${i+1}.gif`;
       let src = '';
       switch (faces[i][1]) {
+        case 0: // Candidate
+          src = './images/candidate.gif';
+          break;
         case 1: // Polka King
           src = './images/polka_king.gif';
           break;
