@@ -17,7 +17,7 @@ QmcaQqzLGTXpK85xvZKcnfE7yLQSo3DoDWB3FKquTLPqQf
 **Note: Update Current IPFS Hash**
 
 ```
-ipfs pin rm <insert old IPFS hash here>
+ipfs pin rm $(ipfs name resolve QmTerFhVZ45pa8FLxkyStiqJrok7uQKCXWb91Bm7tY6SGE)
 ipfs repo gc
 ipfs add -r images
 ipfs name publish <insert new IPFS hash> --key QmTerFhVZ45pa8FLxkyStiqJrok7uQKCXWb91Bm7tY6SGE
