@@ -280,3 +280,11 @@ Follow this guide to start the marketplace (and remember to configure the collec
 After your marketplace is up, you will see your collection in your wallet:
 
 ![Marketplace](doc/marketplace.png)
+
+## Minting Ambassadors
+
+1. Add new NFTs in generated_nfts/nfts.json
+2. Run check-nfts.js to check your input in nfts.json
+3. Run image-generator.js to create correct images
+4. Upload images to IPFS
+5. Run create_items.js to mint on-chain (no need to update start number, it will pick up from chain)
