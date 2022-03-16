@@ -16,7 +16,7 @@ async function main() {
   });
 
   // Test item
-  const itemId = 2;
+  const itemId = 57;
 
   const metadata = await api.rpc.unique.constMetadata(config.collectionId, itemId);
   console.log(metadata.toString());
