@@ -48,12 +48,11 @@ function submitTransaction(sender, transaction) {
 }
 
 async function createCollectionAsync(api, signer) {
-  const name = "Workaholics";
-  const description = "Workaholics test collection";
+  const name = "EthDenverWorkshop";
+  const description = "NFT Workshop collection eth denver 2022";
   const tokenPrefix = "AAA";
   const modeprm = {nft: null};
 
-  console.log(`=== Create collection ${name} ===`);
   const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
   return await submitTransaction(signer, tx);
 }
@@ -91,7 +90,7 @@ async function main() {
   await submitTransaction(owner, tx2);
 
   console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `http://ipfs-gateway.usetech.com/ipfs/Qmap7uz7JKZNovCdLfdDE3p4XA6shghdADS7EsHvLjL6jT/nft_image_{id}.png`);
+  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipfs/Qmap7uz7JKZNovCdLfdDE3p4XA6shghdADS7EsHvLjL6jT/nft_image_{id}.png`);
   await submitTransaction(owner, tx3);
 }
 
