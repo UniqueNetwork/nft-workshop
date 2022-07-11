@@ -1,0 +1,19 @@
+$ node create_collection.js 
+Collection owner address:  5H684Wa69GpbgwQ7w9nZyzVpDmEDCTexhRNmZ7mkqM1Rt7dH
+===============================================
+Connected to chain: UNIQUE
+----------------------
+=== Create collection PolkaDot Kings & Queens Ambassadors’ Badges ===
+Current tx status is Ready
+Current tx status is {"broadcast":["12D3KooWS9KPgJVRBo1bCypYEC4VPJ8ck4S3km3gnDRrJiKRgCn8","12D3KooWDc1pBNFa4Sc3xeivC9TojdkBRKkSkMFW1VtLCmutq812","12D3KooWQuXy1zgzXQ57zrAktAAFJkAEAZ3Tyw3PihFfoE4s6mh9","12D3KooWLwR4WUEj1AUaqSZcDanpiikS9F8JYZLFotGuVvxkHAvx","12D3KooWLJyHGPt8f666FQkCtAScWeZnUQVNdupxMpqgcjdVF9NH","12D3KooWNL3uxw6sFzSwrTB92ztvTQYaYxS46yLN72o2TAKWTEb9","12D3KooWAU4Bw1b8bgbCaDWsy3vZLrSmYVLkDDuwHzMtgvRxztDD","12D3KooWNt9k14a2tffCpSLCy7nrNNfJMMy8mCUaqH99crXJrLjr","12D3KooWKU1VrHgTXyeYnFdrhKTXJCyf4377Db5V8EMyG5m3WoBu"]}
+Current tx status is {"inBlock":"0xb75e605dd5b55b5749a80b461f8e565516f67851b3d0c1e48f1539f6edbc688a"}
+Transaction included at blockHash 0xb75e605dd5b55b5749a80b461f8e565516f67851b3d0c1e48f1539f6edbc688a
+Current tx status is {"finalized":"0xb75e605dd5b55b5749a80b461f8e565516f67851b3d0c1e48f1539f6edbc688a"}
+Transaction finalized at blockHash 0xb75e605dd5b55b5749a80b461f8e565516f67851b3d0c1e48f1539f6edbc688a
+Collection created: 3
+===============================================
+Testing collection
+    Collection name:        PolkaDot Kings & Queens Ambassador Badges
+    Collection description: Kusama Princes & Princesses and Polkadot Kings & Queens are a symbol of the Power of The Community and The Power of an Individual in this ecosystem. We are Decentralized but United by the ideal of building a new creative, decentralized and fairer world.
+    Token Prefix:           PAB
+----------------------

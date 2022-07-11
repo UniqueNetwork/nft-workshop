@@ -10,6 +10,10 @@ function strToUTF16(str) {
   return buf;
 }
 
+function vec2str(arr) {
+  return arr.map(x => String.fromCharCode(parseInt(x))).join('');
+}
+
 function getCreatedCollectionId(events) {
   let success = false;
   let collectionId = 0;
@@ -52,9 +56,15 @@ async function createCollectionAsync(api, signer) {
   const description = "Kusama Princes & Princesses and Polkadot Kings & Queens are a symbol of the Power of The Community and The Power of an Individual in this ecosystem. We are Decentralized but United by the ideal of building a new creative, decentralized and fairer world.";
   const tokenPrefix = "PAB";
   const modeprm = {nft: null};
+  const options = {
+    mode: modeprm,
+    name: strToUTF16(name),
+    description: strToUTF16(description),
+    tokenPrefix: tokenPrefix
+  };
 
   console.log(`=== Create collection ${name} ===`);
-  const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
+  const tx = api.tx.unique.createCollectionEx(options);
   return await submitTransaction(signer, tx);
 }
 
@@ -63,7 +73,7 @@ async function main() {
   const wsProvider = new WsProvider(config.wsEndpoint);
 
   // Create the API and wait until ready
-  const defs = require('@unique-nft/types/definitions');
+  const defs = require('@unique-nft/unique-mainnet-types/definitions');
   const api = await ApiPromise.create({ 
     provider: wsProvider,
     rpc: { unique: defs.unique.rpc }
@@ -74,10 +84,25 @@ async function main() {
   const owner = keyring.addFromUri(config.ownerSeed);
   console.log("Collection owner address: ", owner.address);
 
+  // Output chain info for clarity
+  const chain = await api.rpc.system.chain();
+  console.log('===============================================')  
+  console.log('Connected to chain: ' + chain)  
+  console.log('----------------------')  
+
   // // Create collection as owner
-  // const collectionId = await createCollectionAsync(api, owner);
-  // console.log(`Collection created: ${collectionId}`);
-  const collectionId = config.collectionId;
+  const collectionId = await createCollectionAsync(api, owner);
+  console.log(`Collection created: ${collectionId}`);
+  // const collectionId = config.collectionId;
+
+  // Test created collection
+  const c = (await api.rpc.unique.collectionById(collectionId)).toHuman();
+  console.log('===============================================')  
+  console.log('Testing collection')  
+  console.log(`    Collection name:        ${vec2str(c.name)}`);
+  console.log(`    Collection description: ${vec2str(c.description)}`);
+  console.log(`    Token Prefix:           ${c.tokenPrefix}`);
+  console.log('----------------------')  
 
   // // Set onchain schema
   // console.log("=== Set const on-chain schema ===");
@@ -90,9 +115,9 @@ async function main() {
   // const tx2 = api.tx.unique.setSchemaVersion(collectionId, 'ImageURL');
   // await submitTransaction(owner, tx2);
 
-  console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipns/QmTerFhVZ45pa8FLxkyStiqJrok7uQKCXWb91Bm7tY6SGE/image{id}.gif`);
-  await submitTransaction(owner, tx3);
+  // console.log("=== Set offchain schema ===");
+  // const tx3 = api.tx.unique.setOffchainSchema(collectionId, `https://ipfs-gateway.usetech.com/ipns/QmTerFhVZ45pa8FLxkyStiqJrok7uQKCXWb91Bm7tY6SGE/image{id}.gif`);
+  // await submitTransaction(owner, tx3);
 }
 
 main().catch(console.error).finally(() => process.exit());
