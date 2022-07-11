@@ -13,8 +13,8 @@
   "license": "Apache 2.0",
   "homepage": "",
   "dependencies": {
-    "@polkadot/api": "6.10.1",
-    "@unique-nft/types": "0.2.0",
+    "@polkadot/api": "8.11.3",
+    "@unique-nft/unique-mainnet-types": "0.6.3",
     "bignumber.js": "^9.0.0",
     "fs": "^0.0.1-security",
     "merge-img": "^2.1.3",
