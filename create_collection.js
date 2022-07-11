@@ -93,7 +93,7 @@ async function main() {
   // // Create collection as owner
   const collectionId = await createCollectionAsync(api, owner);
   console.log(`Collection created: ${collectionId}`);
-  // const collectionId = 1232;
+  // const collectionId = 1;
 
   // Test created collection
   const c = (await api.rpc.unique.collectionById(collectionId)).toHuman();
