@@ -10,6 +10,10 @@ function strToUTF16(str) {
   return buf;
 }
 
+function vec2str(arr) {
+  return arr.map(x => String.fromCharCode(parseInt(x))).join('');
+}
+
 function getCreatedCollectionId(events) {
   let success = false;
   let collectionId = 0;
@@ -52,9 +56,15 @@ async function createCollectionAsync(api, signer) {
   const description = "Unique NFT collection dedicated to Polkadot Decoded 2021";
   const tokenPrefix = "CHEL";
   const modeprm = {nft: null};
+  const options = {
+    mode: modeprm,
+    name: strToUTF16(name),
+    description: strToUTF16(description),
+    tokenPrefix: tokenPrefix
+  };
 
   console.log(`=== Create collection ${name} ===`);
-  const tx = api.tx.unique.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
+  const tx = api.tx.unique.createCollectionEx(options);
   return await submitTransaction(signer, tx);
 }
 
@@ -63,7 +73,7 @@ async function main() {
   const wsProvider = new WsProvider(config.wsEndpoint);
 
   // Create the API and wait until ready
-  const defs = require('@unique-nft/types/definitions');
+  const defs = require('@unique-nft/unique-mainnet-types/definitions');
   const api = await ApiPromise.create({ 
     provider: wsProvider,
     rpc: { unique: defs.unique.rpc }
@@ -74,16 +84,31 @@ async function main() {
   const owner = keyring.addFromUri(config.ownerSeed);
   console.log("Collection owner address: ", owner.address);
 
+  // Output chain info for clarity
+  const chain = await api.rpc.system.chain();
+  console.log('===============================================')  
+  console.log('Connected to chain: ' + chain)  
+  console.log('----------------------')  
+
   // // Create collection as owner
-  // const collectionId = await createCollectionAsync(api, owner);
-  // console.log(`Collection created: ${collectionId}`);
-  const collectionId = 2;
+  const collectionId = await createCollectionAsync(api, owner);
+  console.log(`Collection created: ${collectionId}`);
+  // const collectionId = 1;
+
+  // Test created collection
+  const c = (await api.rpc.unique.collectionById(collectionId)).toHuman();
+  console.log('===============================================')  
+  console.log('Testing collection')  
+  console.log(`    Collection name:        ${vec2str(c.name)}`);
+  console.log(`    Collection description: ${vec2str(c.description)}`);
+  console.log(`    Token Prefix:           ${c.tokenPrefix}`);
+  console.log('----------------------')  
 
   // Set onchain schema
-  console.log("=== Set const on-chain schema ===");
-  const schema = "{\"nested\":{\"onChainMetaData\":{\"nested\":{\"NFTMeta\":{\"fields\":{\"ipfsJson\":{\"id\":1,\"rule\":\"required\",\"type\":\"string\"},\"traits\":{\"id\":2,\"rule\":\"repeated\",\"type\":\"CheloTrait\"}}},\"CheloTrait\":{\"options\":{\"EYES_1\":\"{\\\"en\\\": \\\"Blah-blah Eyes\\\"}\",\"EYES_2\":\"{\\\"en\\\": \\\"Eyes To The Left\\\"}\",\"EYES_3\":\"{\\\"en\\\": \\\"Eyes To The Right\\\"}\",\"EYES_4\":\"{\\\"en\\\": \\\"Eyes Up\\\"}\",\"EYES_5\":\"{\\\"en\\\": \\\"Eyes Wide Open\\\"}\",\"EYES_6\":\"{\\\"en\\\": \\\"Pirate Eye\\\"}\",\"EYES_7\":\"{\\\"en\\\": \\\"Professor Eyes\\\"}\",\"EYES_8\":\"{\\\"en\\\": \\\"Red Pixel Glasses\\\"}\",\"EYES_9\":\"{\\\"en\\\": \\\"Sunglasses\\\"}\",\"EARRINGS_1\":\"{\\\"en\\\": \\\"Long Black Earrings\\\"}\",\"EARRINGS_2\":\"{\\\"en\\\": \\\"Black Earrings\\\"}\",\"EARRINGS_3\":\"{\\\"en\\\": \\\"Long Black Left Earring\\\"}\",\"EARRINGS_4\":\"{\\\"en\\\": \\\"Black Left Earring\\\"}\",\"EARRINGS_5\":\"{\\\"en\\\": \\\"Long Black Right Earring\\\"}\",\"EARRINGS_6\":\"{\\\"en\\\": \\\"Black Right Earring\\\"}\",\"EARRINGS_7\":\"{\\\"en\\\": \\\"Long Red Earrings\\\"}\",\"EARRINGS_8\":\"{\\\"en\\\": \\\"Red Earrings\\\"}\",\"EARRINGS_9\":\"{\\\"en\\\": \\\"Long Red Left Earring\\\"}\",\"EARRINGS_10\":\"{\\\"en\\\": \\\"Red Left Earring\\\"}\",\"EARRINGS_11\":\"{\\\"en\\\": \\\"Long Red Right Earring\\\"}\",\"EARRINGS_12\":\"{\\\"en\\\": \\\"Red Right Earring\\\"}\",\"MOUTH_1\":\"{\\\"en\\\": \\\"LOL Teeth\\\"}\",\"MOUTH_2\":\"{\\\"en\\\": \\\"Mexican Mustache\\\"}\",\"MOUTH_3\":\"{\\\"en\\\": \\\"Black Mustache\\\"}\",\"MOUTH_4\":\"{\\\"en\\\": \\\"Gold Mustache\\\"}\",\"MOUTH_5\":\"{\\\"en\\\": \\\"Oops Left\\\"}\",\"MOUTH_6\":\"{\\\"en\\\": \\\"Oops Right\\\"}\",\"MOUTH_7\":\"{\\\"en\\\": \\\"Piglet Mouth\\\"}\",\"MOUTH_8\":\"{\\\"en\\\": \\\"Sad Face\\\"}\",\"MOUTH_9\":\"{\\\"en\\\": \\\"Smile\\\"}\",\"MOUTH_10\":\"{\\\"en\\\": \\\"Vampire\\\"}\",\"MOUTH_11\":\"{\\\"en\\\": \\\"White Beard\\\"}\",\"MOUTH_12\":\"{\\\"en\\\": \\\"Wide Smile\\\"}\",\"MOUTH_13\":\"{\\\"en\\\": \\\"Wooah\\\"}\",\"BEARD_1\":\"{\\\"en\\\": \\\"Short Box Orange Beard\\\"}\",\"BEARD_2\":\"{\\\"en\\\": \\\"Short Box Black Beard\\\"}\",\"BEARD_3\":\"{\\\"en\\\": \\\"Chin Strap Black Beard\\\"}\",\"BEARD_4\":\"{\\\"en\\\": \\\"Chin Strap Orange Beard\\\"}\",\"BEARD_5\":\"{\\\"en\\\": \\\"Balbo Black Beard\\\"}\",\"BEARD_6\":\"{\\\"en\\\": \\\"Balbo Orange Beard\\\"}\",\"BEARD_7\":\"{\\\"en\\\": \\\"Gunslinger Black Beard\\\"}\",\"BEARD_8\":\"{\\\"en\\\": \\\"Gunslinger Orange Beard\\\"}\",\"BEARD_9\":\"{\\\"en\\\": \\\"3-day Stubble Black\\\"}\",\"BEARD_10\":\"{\\\"en\\\": \\\"3-day Stubble Orange\\\"}\",\"BEARD_11\":\"{\\\"en\\\": \\\"Hipster Black Beard\\\"}\",\"BEARD_12\":\"{\\\"en\\\": \\\"Hipster Orange Beard\\\"}\",\"PRINT_1\":\"{\\\"en\\\": \\\"Berry Print\\\"}\",\"PRINT_2\":\"{\\\"en\\\": \\\"Black Heart Print\\\"}\",\"PRINT_3\":\"{\\\"en\\\": \\\"Blue Parrot Print\\\"}\",\"PRINT_4\":\"{\\\"en\\\": \\\"Hate Print\\\"}\",\"PRINT_5\":\"{\\\"en\\\": \\\"Heart Print\\\"}\",\"PRINT_6\":\"{\\\"en\\\": \\\"Orange Print\\\"}\",\"PRINT_7\":\"{\\\"en\\\": \\\"Unique Black Logo\\\"}\",\"PRINT_8\":\"{\\\"en\\\": \\\"Unique Blue Logo\\\"}\",\"PRINT_9\":\"{\\\"en\\\": \\\"Yellow Parrot Print\\\"}\",\"PRINT_10\":\"{\\\"en\\\": \\\"Berry Print\\\"}\",\"PRINT_11\":\"{\\\"en\\\": \\\"Black Heart Print\\\"}\",\"PRINT_12\":\"{\\\"en\\\": \\\"Blue Parrot Print\\\"}\",\"PRINT_13\":\"{\\\"en\\\": \\\"Love Print\\\"}\",\"PRINT_14\":\"{\\\"en\\\": \\\"Heart Print\\\"}\",\"PRINT_15\":\"{\\\"en\\\": \\\"Orange Print\\\"}\",\"PRINT_16\":\"{\\\"en\\\": \\\"Unique Black Logo\\\"}\",\"PRINT_17\":\"{\\\"en\\\": \\\"Unique Blue Logo\\\"}\",\"PRINT_18\":\"{\\\"en\\\": \\\"Yellow Parrot Print\\\"}\"},\"values\":{\"EYES_1\":0,\"EYES_2\":1,\"EYES_3\":2,\"EYES_4\":3,\"EYES_5\":4,\"EYES_6\":5,\"EYES_7\":6,\"EYES_8\":7,\"EYES_9\":8,\"EARRINGS_1\":9,\"EARRINGS_2\":10,\"EARRINGS_3\":11,\"EARRINGS_4\":12,\"EARRINGS_5\":13,\"EARRINGS_6\":14,\"EARRINGS_7\":15,\"EARRINGS_8\":16,\"EARRINGS_9\":17,\"EARRINGS_10\":18,\"EARRINGS_11\":19,\"EARRINGS_12\":20,\"MOUTH_1\":21,\"MOUTH_2\":22,\"MOUTH_3\":23,\"MOUTH_4\":24,\"MOUTH_5\":25,\"MOUTH_6\":26,\"MOUTH_7\":27,\"MOUTH_8\":28,\"MOUTH_9\":29,\"MOUTH_10\":30,\"MOUTH_11\":31,\"MOUTH_12\":32,\"MOUTH_13\":33,\"BEARD_1\":34,\"BEARD_2\":35,\"BEARD_3\":36,\"BEARD_4\":37,\"BEARD_5\":38,\"BEARD_6\":39,\"BEARD_7\":40,\"BEARD_8\":41,\"BEARD_9\":42,\"BEARD_10\":43,\"BEARD_11\":44,\"BEARD_12\":45,\"PRINT_1\":46,\"PRINT_2\":47,\"PRINT_3\":48,\"PRINT_4\":49,\"PRINT_5\":50,\"PRINT_6\":51,\"PRINT_7\":52,\"PRINT_8\":53,\"PRINT_9\":54,\"PRINT_10\":55,\"PRINT_11\":56,\"PRINT_12\":57,\"PRINT_13\":58,\"PRINT_14\":59,\"PRINT_15\":60,\"PRINT_16\":61,\"PRINT_17\":62,\"PRINT_18\":63}}}}}}";
-  const tx4 = api.tx.unique.setConstOnChainSchema(collectionId, strToUTF16(schema));
-  await submitTransaction(owner, tx4);
+  // console.log("=== Set const on-chain schema ===");
+  // const schema = "{\"nested\":{\"onChainMetaData\":{\"nested\":{\"NFTMeta\":{\"fields\":{\"ipfsJson\":{\"id\":1,\"rule\":\"required\",\"type\":\"string\"},\"gender\":{\"id\":2,\"rule\":\"required\",\"type\":\"Gender\"},\"traits\":{\"id\":3,\"rule\":\"repeated\",\"type\":\"PunkTrait\"}}},\"Gender\":{\"options\":{\"Female\":\"{\\\"en\\\": \\\"Female\\\"}\",\"Male\":\"{\\\"en\\\": \\\"Male\\\"}\"},\"values\":{\"Female\":1,\"Male\":0}},\"PunkTrait\":{\"options\":{\"BLACK_LIPSTICK\":\"{\\\"en\\\": \\\"Black Lipstick\\\"}\",\"RED_LIPSTICK\":\"{\\\"en\\\": \\\"Red Lipstick\\\"}\",\"SMILE\":\"{\\\"en\\\": \\\"Smile\\\"}\",\"TEETH_SMILE\":\"{\\\"en\\\": \\\"Teeth Smile\\\"}\",\"PURPLE_LIPSTICK\":\"{\\\"en\\\": \\\"Purple Lipstick\\\"}\",\"NOSE_RING\":\"{\\\"en\\\": \\\"Nose Ring\\\"}\",\"ASIAN_EYES\":\"{\\\"en\\\": \\\"Asian Eyes\\\"}\",\"SUNGLASSES\":\"{\\\"en\\\": \\\"Sunglasses\\\"}\",\"RED_GLASSES\":\"{\\\"en\\\": \\\"Red Glasses\\\"}\",\"ROUND_EYES\":\"{\\\"en\\\": \\\"Round Eyes\\\"}\",\"LEFT_EARRING\":\"{\\\"en\\\": \\\"Left Earring\\\"}\",\"RIGHT_EARRING\":\"{\\\"en\\\": \\\"Right Earring\\\"}\",\"TWO_EARRINGS\":\"{\\\"en\\\": \\\"Two Earrings\\\"}\",\"BROWN_BEARD\":\"{\\\"en\\\": \\\"Brown Beard\\\"}\",\"MUSTACHE_BEARD\":\"{\\\"en\\\": \\\"Mustache Beard\\\"}\",\"MUSTACHE\":\"{\\\"en\\\": \\\"Mustache\\\"}\",\"REGULAR_BEARD\":\"{\\\"en\\\": \\\"Regular Beard\\\"}\",\"UP_HAIR\":\"{\\\"en\\\": \\\"Up Hair\\\"}\",\"DOWN_HAIR\":\"{\\\"en\\\": \\\"Down Hair\\\"}\",\"MAHAWK\":\"{\\\"en\\\": \\\"Mahawk\\\"}\",\"RED_MAHAWK\":\"{\\\"en\\\": \\\"Red Mahawk\\\"}\",\"ORANGE_HAIR\":\"{\\\"en\\\": \\\"Orange Hair\\\"}\",\"BUBBLE_HAIR\":\"{\\\"en\\\": \\\"Bubble Hair\\\"}\",\"EMO_HAIR\":\"{\\\"en\\\": \\\"Emo Hair\\\"}\",\"THIN_HAIR\":\"{\\\"en\\\": \\\"Thin Hair\\\"}\",\"BALD\":\"{\\\"en\\\": \\\"Bald\\\"}\",\"BLONDE_HAIR\":\"{\\\"en\\\": \\\"Blonde Hair\\\"}\",\"CARET_HAIR\":\"{\\\"en\\\": \\\"Caret Hair\\\"}\",\"PONY_TAILS\":\"{\\\"en\\\": \\\"Pony Tails\\\"}\",\"CIGAR\":\"{\\\"en\\\": \\\"Cigar\\\"}\",\"PIPE\":\"{\\\"en\\\": \\\"Pipe\\\"}\"},\"values\":{\"BLACK_LIPSTICK\":0,\"RED_LIPSTICK\":1,\"SMILE\":2,\"TEETH_SMILE\":3,\"PURPLE_LIPSTICK\":4,\"NOSE_RING\":5,\"ASIAN_EYES\":6,\"SUNGLASSES\":7,\"RED_GLASSES\":8,\"ROUND_EYES\":9,\"LEFT_EARRING\":10,\"RIGHT_EARRING\":11,\"TWO_EARRINGS\":12,\"BROWN_BEARD\":13,\"MUSTACHE_BEARD\":14,\"MUSTACHE\":15,\"REGULAR_BEARD\":16,\"UP_HAIR\":17,\"DOWN_HAIR\":18,\"MAHAWK\":19,\"RED_MAHAWK\":20,\"ORANGE_HAIR\":21,\"BUBBLE_HAIR\":22,\"EMO_HAIR\":23,\"THIN_HAIR\":24,\"BALD\":25,\"BLONDE_HAIR\":26,\"CARET_HAIR\":27,\"PONY_TAILS\":28,\"CIGAR\":29,\"PIPE\":30}}}}}}";
+  // const tx4 = api.tx.unique.setConstOnChainSchema(collectionId, strToUTF16(schema));
+  // await submitTransaction(owner, tx4);
 
   // // Set offchain schema
   // console.log("=== Set schema version ===");
