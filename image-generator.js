@@ -2,23 +2,11 @@ const fs = require("fs");
 const mergeImg = require('merge-img');
 const config = require('./config');
 const attributes = require('./attributes');
+const { spawn, Pool, Worker } = require("threads");
 
 let faces;
 
-function mergeImagesToPng(images, output) {
-  return new Promise(function(resolve, reject) {
-    mergeImg(images)
-    .then((img) => {
-      // Save image as file
-      img.write(output, () => {
-        console.log(`Image ${output} saved`);
-        resolve();
-      });
-    });
-  });
-}
-
-async function saveFaceByAttributes(arr, outFile) {
+function getImageData(arr) {
   let images = [];
 
   for (let i=0; i < arr.length; i++) {
@@ -32,15 +20,14 @@ async function saveFaceByAttributes(arr, outFile) {
     }
   }
 
-  // Generate image
-  await mergeImagesToPng(images, outFile);
+  return images;
 }
 
 function printAttributes(i) {
   let attrs = '[' + faces[i] + '] => ';
   for (let j=0; j<attributes.length; j++) {
     if (faces[i][j] > 0) {
-      attrs += attributes[j].attrNames[faces[i][j]-1] + ", ";
+      attrs += attributes[j].values[faces[i][j]-1] + ", ";
     }
   }
 
@@ -48,15 +35,32 @@ function printAttributes(i) {
 }
 
 async function generateImages() {
+
+  const pool = Pool(() => spawn(new Worker("./generate-image.worker")), 10 /* optional size */);
+
   for (let i=0; i<faces.length; i++) {
-    printAttributes(i);
-    await saveFaceByAttributes(faces[i], `${config.outputFolder}/nft_image_${i+1}.png`);
+
+    const face = faces[i];
+    const output = `${config.outputFolder}/${config.imagePrefix}${i+1}.png`;
+
+    const images = getImageData(face);
+
+    pool.queue(async (generateImage) => {
+      const num = await generateImage({ images, output, num: i });
+      printAttributes(num);
+    });
   }
+
+  await pool.completed()
+  await pool.terminate()
+
 }
 
 async function main() {
   faces = JSON.parse(fs.readFileSync(`${config.outputFolder}/${config.outputJSON}`));
+  console.time('images');
   await generateImages();
+  console.timeEnd('images');
 }
 
 main();
