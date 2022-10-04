@@ -64,7 +64,7 @@ Once you have the Seed Phrase ready, create `config.js` from `config.example.js`
 
 ```
 const config = {
-    wsEndpoint: 'wss://testnet2.unique.network',
+    endpoint: 'https://rest.unique.network/opal',
     ownerSeed: '//Alice',
 
     imagePartsFolder: "./images",
@@ -73,6 +73,25 @@ const config = {
     outputSchema: "schema.json",
     desiredCount: 20
 }
+```
+
+#### Public endpoints
+
+You can use public endpoints for access Rest:
+
+#### Opal
+```
+https://rest.unique.network/opal
+```
+
+#### Quartz
+```
+https://rest.unique.network/quartz
+```
+
+#### Unique
+```
+https://rest.unique.network/unique
 ```
 
 ## Step 5: Generate NFT Properties

@@ -1,5 +1,5 @@
 const config = {
-    wsEndpoint: 'wss://testnet2.unique.network',
+    endpoint: 'https://rest.unique.network/opal',
     ownerSeed: '//Alice',
 
     imagePartsFolder: "./images",
@@ -7,6 +7,7 @@ const config = {
     outputJSON: "nfts.json",
     outputSchema: "schema.json",
     desiredCount: 20,
+    imagePrefix: 'name_image',
 
     collectionId: 209
 }

@@ -1,97 +1,69 @@
-const { ApiPromise, WsProvider, Keyring } = require('@polkadot/api');
+const { KeyringProvider } = require('@unique-nft/accounts/keyring');
+const { Sdk } = require('@unique-nft/sdk');
 const config = require('./config');
-const fs = require('fs');
+const attributes = require('./attributes');
 
-function strToUTF16(str) {
-  let buf = [];
-  for (let i=0, strLen=str.length; i < strLen; i++) {
-    buf.push(str.charCodeAt(i));
+const inputDataForCreateCollection = {
+  mode: 'Nft',
+  name: 'NFTWorkshop',
+  description: 'NFT Workshop collection',
+  tokenPrefix: 'TMP',
+  metaUpdatePermission: 'ItemOwner',
+  readOnly: true,
+  schema: {
+    coverPicture: {
+      ipfsCid: '',
+    },
+    image: {
+      urlTemplate: 'http://localhost:8080/ipfs/<your IPFS folder hash>/{infix}.png'
+    },
+    schemaName: 'unique',
+    schemaVersion: '1.0.0',
+    attributesSchemaVersion: '1.0.0'
   }
-  return buf;
-}
-
-function getCreatedCollectionId(events) {
-  let success = false;
-  let collectionId = 0;
-  events.forEach(({ phase, event: { data, method, section } }) => {
-    // console.log(`    ${phase}: ${section}.${method}:: ${data}`);
-    if (method == 'ExtrinsicSuccess') {
-      success = true;
-    } else if ((section == 'nft')  && (method == 'CollectionCreated')) {
-      collectionId = parseInt(data[0].toString());
-    }
-  });
-  return collectionId;
-}
-
-function submitTransaction(sender, transaction) {
-  return new Promise(async function(resolve, reject) {
-    try {
-      const unsub = await transaction
-      .signAndSend(sender, (result) => {
-        console.log(`Current tx status is ${result.status}`);
-    
-        if (result.status.isInBlock) {
-          console.log(`Transaction included at blockHash ${result.status.asInBlock}`);
-        } else if (result.status.isFinalized) {
-          console.log(`Transaction finalized at blockHash ${result.status.asFinalized}`);
-          let id = getCreatedCollectionId(result.events);
-          resolve(id);
-          unsub();
-        }
-      });
-    }
-    catch (e) {
-      reject(e.toString());
-    }
-  });
-}
-
-async function createCollectionAsync(api, signer) {
-  const name = "NFTWorkshop";
-  const description = "NFT Workshop collection";
-  const tokenPrefix = "TMP";
-  const modeprm = {nft: null};
-
-  const tx = api.tx.nft.createCollection(strToUTF16(name), strToUTF16(description), strToUTF16(tokenPrefix), modeprm);
-  return await submitTransaction(signer, tx);
 }
 
 async function main() {
-  // Initialise the provider to connect to the node
-  const wsProvider = new WsProvider(config.wsEndpoint);
-  const rtt = JSON.parse(fs.readFileSync("./runtime_types.json"));
+  // Initialise the SDK
+  const provider = new KeyringProvider({ type: 'sr25519' });
+  await provider.init();
+  const signer = provider.addSeed(config.ownerSeed);
 
-  // Create the API and wait until ready
-  const api = await ApiPromise.create({ 
-    provider: wsProvider,
-    types: rtt
+  const clientOptions = {
+    baseUrl: config.endpoint,
+    signer
+  };
+  const sdk = new Sdk(clientOptions);
+
+  console.log("=== Create collection ===");
+
+  const attributesSchema = {};
+  attributes.forEach(({ name, required, values }, i) => {
+    const enumValues = {};
+    values.forEach((value, j) => {
+      enumValues[j.toString()] = { _: value.value ?? value  };
+    });
+    attributesSchema[i.toString()] = {
+      name: {
+        _: name,
+      },
+      type: 'string',
+      optional: !required,
+      isArray: true,
+      enumValues: enumValues
+    };
   });
 
-  // Owners's keypair
-  const keyring = new Keyring({ type: 'sr25519' });
-  const owner = keyring.addFromUri(config.ownerSeed);
-  console.log("Collection owner address: ", owner.address);
+  inputDataForCreateCollection.schema.attributesSchema = attributesSchema;
 
-  // Create collection as owner
-  console.log("=== Create collection ===");
-  const collectionId = await createCollectionAsync(api, owner);
+  const { parsed: { collectionId } } =
+      await sdk.collections.creation.submitWaitResult(
+          {
+            ...inputDataForCreateCollection,
+            address: signer.instance.address
+          },
+      );
   console.log(`Collection created: ${collectionId}`);
-
-  // Set onchain schema
-  console.log("=== Set const on-chain schema ===");
-  const schema = (fs.readFileSync(`${config.outputFolder}/${config.outputSchema}`)).toString();
-  const tx4 = api.tx.nft.setConstOnChainSchema(collectionId, strToUTF16(schema));
-  await submitTransaction(owner, tx4);
-
-  // Set offchain schema
-  console.log("=== Set schema version ===");
-  const tx2 = api.tx.nft.setSchemaVersion(collectionId, 'ImageURL');
-  await submitTransaction(owner, tx2);
-
-  console.log("=== Set offchain schema ===");
-  const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
-  await submitTransaction(owner, tx3);
 }
 
 main().catch(console.error).finally(() => process.exit());
