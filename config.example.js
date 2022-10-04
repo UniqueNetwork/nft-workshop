@@ -5,7 +5,6 @@ const config = {
     imagePartsFolder: "./images",
     outputFolder: "./generated_nfts",
     outputJSON: "nfts.json",
-    outputSchema: "schema.json",
     desiredCount: 20,
     imagePrefix: 'name_image',
 

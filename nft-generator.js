@@ -1,6 +1,6 @@
 const fs = require("fs");
 var BigNumber = require('bignumber.js');
-const config = require('./config');
+const config = require('./config.js');
 const attributes = require('./attributes');
 
 function getRandomInt(max) {
@@ -16,7 +16,7 @@ function attributeName(i) {
 
 function propertyName(i, j) {
   const property = attributes[i].values[j - 1];
-  return property.value || property;
+  return property?.value ? property?.value : property;
 }
 
 function logAttributes(prefix, face) {
@@ -107,48 +107,6 @@ function generateNFTs() {
     fs.mkdirSync(config.outputFolder);
   }
   fs.writeFileSync(`${config.outputFolder}/${config.outputJSON}`, JSON.stringify(faces));
-}
-
-/**
- * Generate protobuf JSON schema
- */
-function generateSchema() {
-  // Empty schema
-  let schema = {
-    nested: {
-      onChainMetaData: {
-        nested: {
-          NFTMeta: {
-            fields: {
-              traits: {
-                id: 1,
-                rule: 'repeated',
-                type: 'FireballTrait'
-              }
-            }
-          },
-          FireballTrait: {
-            options: {
-            },
-            values: {
-            }
-          }
-        }
-      }
-    }
-  };
-
-  // Fill schema with attributes (traits)
-  let value = 0;
-  for (let i=0; i<attributes.length; i++) {
-    for (let j=0; j<attributes[i].count; j++) {
-      schema.nested.onChainMetaData.nested.FireballTrait.options[`PROP_${value}`] = `{"en": "${attributes[i].attrNames[j]}"}`;
-      schema.nested.onChainMetaData.nested.FireballTrait.values[`PROP_${value}`] = value;
-      value++;
-    }
-  }
-
-  fs.writeFileSync(`${config.outputFolder}/${config.outputSchema}`, JSON.stringify(schema));
 }
 
 function main() {

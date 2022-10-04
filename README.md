@@ -70,7 +70,6 @@ const config = {
     imagePartsFolder: "./images",
     outputFolder: "./generated_nfts",
     outputJSON: "nfts.json",
-    outputSchema: "schema.json",
     desiredCount: 20
 }
 ```
@@ -103,7 +102,7 @@ npm install
 node nft-generator.js
 ```
 
-This script will create `generated_nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT, and `schema.json` - the protobuf schema file with programmatic description of properties that will be later used to mint the collection.
+This script will create `generated_nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT.
 
 ## Step 6: Generate NFT Images
 
@@ -176,7 +175,6 @@ added QmbwdrrWgNo2Vpsu7vCkTZTTKHcKE1f5LTrwgEzX1YRtAa generated_nfts/nft_image_7.
 added QmPtdJXgbZwxCzdtxWshx1vVyC3oQfeNNpTgrT74tHzir2 generated_nfts/nft_image_8.png
 added Qme9BDZ9k5m3dcvbrgbQjsuE6NdTtkVxVMuCkczsVMxNnK generated_nfts/nft_image_9.png
 added QmS4Sskhvuepykb5FUNpsKbXY1qgcY4efFbcBjUyUvN39c generated_nfts/nfts.json
-added QmZAYT7xTJWrU3mPFZrfAAaAaL4JhvtHRbh25UrtkBcUH6 generated_nfts/schema.json
 added QmPWcNUZmnitYKmvPXXGL6mjyGdXJLtk3yJDMABjDWQWoM generated_nfts
 ```
 
