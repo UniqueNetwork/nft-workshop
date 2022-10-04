@@ -49,7 +49,7 @@ async function main() {
       },
       type: 'string',
       optional: !required,
-      isArray: true,
+      isArray: false,
       enumValues: enumValues
     };
   });
