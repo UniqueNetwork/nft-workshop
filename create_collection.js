@@ -24,7 +24,6 @@ const inputDataForCreateCollection = {
 }
 
 async function main() {
-  // Initialise the SDK
   const provider = new KeyringProvider({ type: 'sr25519' });
   await provider.init();
   const signer = provider.addSeed(config.ownerSeed);
