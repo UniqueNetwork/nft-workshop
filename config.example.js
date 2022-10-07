@@ -6,7 +6,7 @@ const config = {
     outputFolder: "./generated_nfts",
     outputJSON: "nfts.json",
     desiredCount: 20,
-    imagePrefix: 'name_image',
+    imagePrefix: 'workoholic_',
 
     collectionId: 209
 }

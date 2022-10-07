@@ -2,7 +2,7 @@ const config = require('./config');
 const faces = require(`${config.outputFolder}/${config.outputJSON}`);
 const { KeyringProvider } = require("@unique-nft/accounts/keyring");
 const { Sdk } = require("@unique-nft/sdk");
-const numberElementsInChunk = 50;
+const numberElementsInChunk = 50; // todo убрать в конфиг
 
 async function main() {
   const provider = new KeyringProvider({ type: 'sr25519' });
@@ -33,6 +33,16 @@ async function main() {
     }
   });
 
+  // todo ты забыла здесь заливку архива с изображениями
+  // todo файлик create-nfts.js надо будет удалить
+  // todo я бы еще в названия файлов добавил типа step_1_create_collection
+
+  // todo attributes.js сможем убрать в конфиг?
+
+  // todo много файлов в корне, надо хотя бы generate-image.worker.js убрать в ./sripts/...
+
+  // todo runtime_types.json может удалить?
+
   let result = [];
   let chunkNumber = 0;
   while (result.length < config.desiredCount) {
@@ -42,7 +52,8 @@ async function main() {
       address: signer.instance.address,
       collectionId: config.collectionId,
       data: chunkData
-    });
+    }); // todo здесь надо заюзать buildBatch, и добавить типа chunksPerBlock
+    // todo надо попробовать 200-500 в блок положить
 
     result = [ ...result, ...parsed];
     await new Promise(resolve => setTimeout(resolve, 1000));
