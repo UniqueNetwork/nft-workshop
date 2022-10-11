@@ -5,11 +5,11 @@ const config = {
     imagePartsFolder: "./images",
     outputFolder: "./generated-nfts",
     outputJSON: "nfts.json",
-    desiredCount: 15,
+    desiredCount: 120,
     imagePrefix: 'workoholic_',
-    numberElementsInChunk: 10,
+    numberElementsInChunk: 50, // todo переменовать переменную в более понятную
 
-    collectionId: 415,
+    collectionId: 415, // todo надо класть в ./generated-nfts и оттуда на следущем шаге забирать
 
     attributes: [
         { name: "head", required: true, values: ["Regular Head"] },

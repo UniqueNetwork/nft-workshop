@@ -8,17 +8,17 @@ const uploadImages = require("./scripts/upload-images");
 
 const inputDataForCreateCollection = {
   mode: 'Nft',
-  name: 'NFTWorkshop',
-  description: 'NFT Workshop collection',
-  tokenPrefix: 'TMP',
+  name: 'NFTWorkshop', // todo в конфиг
+  description: 'NFT Workshop collection', // todo в конфиг
+  tokenPrefix: 'TMP', // todo в конфиг
   metaUpdatePermission: 'ItemOwner',
   readOnly: true,
   schema: {
     coverPicture: {
-      ipfsCid: '',
+      ipfsCid: '', // todo вот наверно надо тоже предусмотреть заливку кавера. положить куда его и залить
     },
     image: {
-      urlTemplate: '<base URL>/ipfs/<your IPFS folder hash>/{infix}.png'
+      urlTemplate: '<base URL>/ipfs/<your IPFS folder hash>/{infix}.png' // todo в конфиг
     },
     schemaName: 'unique',
     schemaVersion: '1.0.0',
@@ -31,6 +31,9 @@ async function main() {
   const zipPath = await createZipArchive();
   const { sdk, signer } = await initializeSdk();
   const fileUrl = await uploadImages(sdk, zipPath);
+  // const fileUrl = 'https://ipfs.uniquenetwork.dev/ipfs/QmWpFqmDFUDTb14ZerbH5hqTwAY6433ztcBeCjaP43z4T2';
+  // todo после того как залили надо url тоже положить в джейсон
+  // todo это для того чтобы если где то грохнулось по дороге -- не заливать заново
 
   console.log("=== Create collection ===");
   const attributesSchema = {};
