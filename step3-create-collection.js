@@ -1,7 +1,10 @@
 const { KeyringProvider } = require('@unique-nft/accounts/keyring');
 const { Sdk } = require('@unique-nft/sdk');
 const config = require('./config');
-const attributes = require('./attributes');
+const attributes = config.attributes;
+const createZipArchive = require("./scripts/create-zip");
+const initializeSdk = require("./scripts/initialize-sdk");
+const uploadImages = require("./scripts/upload-images");
 
 const inputDataForCreateCollection = {
   mode: 'Nft',
@@ -15,7 +18,7 @@ const inputDataForCreateCollection = {
       ipfsCid: '',
     },
     image: {
-      urlTemplate: 'http://localhost:8080/ipfs/<your IPFS folder hash>/{infix}.png'
+      urlTemplate: '<base URL>/ipfs/<your IPFS folder hash>/{infix}.png'
     },
     schemaName: 'unique',
     schemaVersion: '1.0.0',
@@ -24,18 +27,12 @@ const inputDataForCreateCollection = {
 }
 
 async function main() {
-  const provider = new KeyringProvider({ type: 'sr25519' });
-  await provider.init();
-  const signer = provider.addSeed(config.ownerSeed);
 
-  const clientOptions = {
-    baseUrl: config.endpoint,
-    signer
-  };
-  const sdk = new Sdk(clientOptions);
+  const zipPath = await createZipArchive();
+  const { sdk, signer } = await initializeSdk();
+  const fileUrl = await uploadImages(sdk, zipPath);
 
   console.log("=== Create collection ===");
-
   const attributesSchema = {};
   attributes.forEach(({ name, required, values }, i) => {
     const enumValues = {};
@@ -54,8 +51,9 @@ async function main() {
   });
 
   inputDataForCreateCollection.schema.attributesSchema = attributesSchema;
+  inputDataForCreateCollection.schema.image.urlTemplate = `${fileUrl}/{infix}.png`;
 
-  const { parsed: { collectionId } } =
+  const {parsed: {collectionId}} =
       await sdk.collections.creation.submitWaitResult(
           {
             ...inputDataForCreateCollection,

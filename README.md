@@ -95,18 +95,18 @@ https://rest.unique.network/unique
 
 ## Step 5: Generate NFT Properties
 
-Execute following commands in the terminal. The `nft-generator.js` script will generate a unique set of NFT properties for each NFT.
+Execute following commands in the terminal. The `step1-nft-generator.js` script will generate a unique set of NFT properties for each NFT.
 
 ```
 npm install
-node nft-generator.js
+node step1-nft-generator.js
 ```
 
 This script will create `generated_nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT.
 
 ## Step 6: Generate NFT Images
 
-First, set the correct image width in the `saveFaceByAttributes` method in `image-generator.js` file as shown below so that the image merging library knows how to offset image parts:
+First, set the correct image width in the `saveFaceByAttributes` method in `step2-image-generator.js` file as shown below so that the image merging library knows how to offset image parts:
 ```
 async function saveFaceByAttributes(arr, outFile) {
   let images = [];
@@ -130,7 +130,7 @@ async function saveFaceByAttributes(arr, outFile) {
 This script will generate NFT images from image parts using the NFT properties generated in the previous step.
 
 ```
-node image-generator.js
+node step2-image-generator.js
 ```
 
 This script will add NFT images to `generated_nfts` folder.
@@ -198,7 +198,7 @@ It will take IPFS up to a few days to propagate your files. After this period of
 
 At this step you will create the NFT collection and set it's properties on-chain.
 
-First, configure the main collection properties such as name, description, and token prefix in `create_collection.js` file. Note that these properties cannot be changed after the collection is created:
+First, configure the main collection properties such as name, description, and token prefix in `create-collection.js` file. Note that these properties cannot be changed after the collection is created:
 ```
 async function createCollectionAsync(api, signer) {
   const name = "NFTWorkshop";
@@ -211,7 +211,7 @@ async function createCollectionAsync(api, signer) {
 }
 ```
 
-Second, configure the image path here in `create_collection.js` file (replace `<your IPFS folder hash>` with your IPFS folder hash). This setting is not permanent, you may change the offchain schema later because offchain files may change their location:
+Second, configure the image path here in `create-collection.js` file (replace `<your IPFS folder hash>` with your IPFS folder hash). This setting is not permanent, you may change the offchain schema later because offchain files may change their location:
 ```
   console.log("=== Set offchain schema ===");
   const tx3 = api.tx.nft.setOffchainSchema(collectionId, `http://localhost:8080/ipfs/<your IPFS folder hash>/nft_image_{id}.png`);
@@ -220,7 +220,7 @@ Second, configure the image path here in `create_collection.js` file (replace `<
 
 Now you are ready to execute the blockchain transactions:
 ```
-node create_collection.js
+node create-collection.js
 ```
 
 A typical terminal output for this script should look like follows:
@@ -229,7 +229,7 @@ A typical terminal output for this script should look like follows:
   <summary>Click to expand</summary>
 
 ```
-$ node create_collection.js 
+$ node create-collection.js 
 Collection owner address:  5E1WRCxeRcAv5pxgTTHJTT8dWCBbL2DgPQxK2FESSC42tBiy
 === Create collection ===
 Current tx status is Ready
@@ -281,7 +281,7 @@ Collection created: 224
 
 2. Now it's time to mint NFTs. Execute this script and wait for it to complete:
 ```
-node create_items.js
+node create-items.js
 ```
 
 A typical terminal output for this script should look like follows:
@@ -290,7 +290,7 @@ A typical terminal output for this script should look like follows:
   <summary>Click to expand</summary>
 
 ```
-$ node create_items.js 
+$ node create-items.js 
 Collection owner address:  5E1WRCxeRcAv5pxgTTHJTT8dWCBbL2DgPQxK2FESSC42tBiy
 =================================================
 Creating item 1 from attributes [1,1,2,3,3,3]

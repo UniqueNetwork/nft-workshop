@@ -1,8 +1,9 @@
 const fs = require("fs");
 const mergeImg = require('merge-img');
 const config = require('./config');
-const attributes = require('./attributes');
 const { spawn, Pool, Worker } = require("threads");
+
+const attributes = config.attributes;
 
 let faces;
 
@@ -36,7 +37,7 @@ function printAttributes(i) {
 
 async function generateImages() {
 
-  const pool = Pool(() => spawn(new Worker("./generate-image.worker")), 10 /* optional size */);
+  const pool = Pool(() => spawn(new Worker("./scripts/generate-image.worker")), 10 /* optional size */);
 
   for (let i=0; i<faces.length; i++) {
 
@@ -44,6 +45,7 @@ async function generateImages() {
     const output = `${config.outputFolder}/${config.imagePrefix}${i+1}.png`;
 
     const images = getImageData(face);
+
 
     pool.queue(async (generateImage) => {
       const num = await generateImage({ images, output, num: i });

@@ -1,7 +1,8 @@
 const fs = require("fs");
 var BigNumber = require('bignumber.js');
 const config = require('./config.js');
-const attributes = require('./attributes');
+
+const attributes = config.attributes;
 
 function getRandomInt(max) {
   return BigNumber.random(20)
