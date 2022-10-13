@@ -1,5 +1,5 @@
 const config = {
-    endpoint: 'https://rest.unique.network/opal',
+    endpoint: 'https://rest.unique.network/opal/v1',
     ownerSeed: '//Alice',
 
     imagePartsFolder: './images',
