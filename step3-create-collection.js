@@ -1,24 +1,21 @@
-const { KeyringProvider } = require('@unique-nft/accounts/keyring');
-const { Sdk } = require('@unique-nft/sdk');
 const config = require('./config');
 const attributes = config.attributes;
-const createZipArchive = require("./scripts/create-zip");
-const initializeSdk = require("./scripts/initialize-sdk");
-const uploadImages = require("./scripts/upload-images");
+const createZipArchive = require('./scripts/create-zip');
+const initializeSdk = require('./scripts/initialize-sdk');
+const uploadImages = require('./scripts/upload-images');
+const { readData, writeData } = require('./scripts/utils');
 
 const inputDataForCreateCollection = {
   mode: 'Nft',
-  name: 'NFTWorkshop', // todo в конфиг
-  description: 'NFT Workshop collection', // todo в конфиг
-  tokenPrefix: 'TMP', // todo в конфиг
+  name: config.collectionName,
+  description: config.collectionDescription,
+  tokenPrefix: config.tokenPrefix,
   metaUpdatePermission: 'ItemOwner',
   readOnly: true,
   schema: {
-    coverPicture: {
-      ipfsCid: '', // todo вот наверно надо тоже предусмотреть заливку кавера. положить куда его и залить
-    },
+    coverPicture: {},
     image: {
-      urlTemplate: '<base URL>/ipfs/<your IPFS folder hash>/{infix}.png' // todo в конфиг
+      urlTemplate: '<base URL>/ipfs/<your IPFS folder hash>/{infix}'
     },
     schemaName: 'unique',
     schemaVersion: '1.0.0',
@@ -30,12 +27,10 @@ async function main() {
 
   const zipPath = await createZipArchive();
   const { sdk, signer } = await initializeSdk();
-  const fileUrl = await uploadImages(sdk, zipPath);
-  // const fileUrl = 'https://ipfs.uniquenetwork.dev/ipfs/QmWpFqmDFUDTb14ZerbH5hqTwAY6433ztcBeCjaP43z4T2';
-  // todo после того как залили надо url тоже положить в джейсон
-  // todo это для того чтобы если где то грохнулось по дороге -- не заливать заново
+  let fileUrl = await readData('fileUrl');
+  if (!fileUrl) fileUrl = await uploadImages(sdk, zipPath);
 
-  console.log("=== Create collection ===");
+  console.log('=== Create collection ===');
   const attributesSchema = {};
   attributes.forEach(({ name, required, values }, i) => {
     const enumValues = {};
@@ -54,15 +49,19 @@ async function main() {
   });
 
   inputDataForCreateCollection.schema.attributesSchema = attributesSchema;
-  inputDataForCreateCollection.schema.image.urlTemplate = `${fileUrl}/{infix}.png`;
+  inputDataForCreateCollection.schema.image.urlTemplate = `${fileUrl}/{infix}`;
+  inputDataForCreateCollection.schema.coverPicture = config.coverFileName
+    ? { urlInfix: config.coverFileName }
+    : { ipfsCid: '' };
 
-  const {parsed: {collectionId}} =
+  const { parsed: { collectionId }} =
       await sdk.collections.creation.submitWaitResult(
           {
             ...inputDataForCreateCollection,
             address: signer.instance.address
           },
       );
+  await writeData('collectionId', collectionId);
   console.log(`Collection created: ${collectionId}`);
 }
 

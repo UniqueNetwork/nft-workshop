@@ -24,6 +24,7 @@ The combinable parts are stored as `eye*.png`, `brow*.png`, `nose*.png`, `hair*.
 
 The combinable parts are also stored in numbered files like `images/eye1.png`, `images/eye2.png` ... and `images/nose1.png`, `images/nose2.png` ...
 
+If you want to set a `cover` for a collection, then save the cover file in `images` folder. Store the cover file name in the `coverFileName` property in the `config.js` file. If you do not need to create a cover, then assign an empty string to `coverFileName`.
 
 ## Describe NFT traits
 
@@ -66,11 +67,10 @@ const config = {
     endpoint: 'https://rest.unique.network/opal',
     ownerSeed: '//Alice',
 
-    imagePartsFolder: "./images",
-    outputFolder: "./generated_nfts",
-    outputJSON: "nfts.json",
-    desiredCount: 20
-}
+    imagePartsFolder: './images',
+    imagePrefix: 'workoholic_',
+    imageWidth: 1706,
+    ...
 ```
 
 #### Public endpoints
@@ -94,6 +94,8 @@ https://rest.unique.network/unique
 
 ## Step 1: Generate NFT Properties
 
+Set the required number of tokens in the `config` file using the `requiredCount` filed.
+
 Execute following commands in the terminal. The `step1-nft-generator.js` script will generate a unique set of NFT properties for each NFT.
 
 ```
@@ -101,28 +103,13 @@ npm install
 node step1-nft-generator.js
 ```
 
-This script will create `generated_nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT.
+This script will create `generated-nfts` folder, and save two files: `nfts.json` - array of NFT properties for each NFT.
 
 ## Step 2: Generate NFT Images
 
-First, set the correct image width in the `saveFaceByAttributes` method in `step2-image-generator.js` file as shown below so that the image merging library knows how to offset image parts:
+First, set the correct image width in the `imageWidth` method in `config.js` property as shown below so that the image merging library knows how to offset image parts:
 ```
-function getImageData(arr) {
-  let images = [];
-
-  for (let i=0; i < arr.length; i++) {
-    if (arr[i] > 0) {
-      const img = {
-        src: `${config.imagePartsFolder}/${attributes[i].name}${arr[i]}.png`,
-        offsetX: (i == 0) ? 0 : -1706, // <-------- Put your image width here
-        offsetY: 0,
-      }
-      images.push(img);
-    }
-  }
-
-  return images;
-}
+imageWidth: 1706,
 ```
 
 This script will generate NFT images from image parts using the NFT properties generated in the previous step.
@@ -131,7 +118,7 @@ This script will generate NFT images from image parts using the NFT properties g
 node step2-image-generator.js
 ```
 
-This script will add NFT images to `generated_nfts` folder.
+This script will add NFT images to `generated-nfts` folder.
 
 ## Step 3: Create Collection
 

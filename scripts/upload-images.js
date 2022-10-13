@@ -1,13 +1,13 @@
-const fs = require("fs");
+const fs = require('fs');
+const { writeData } = require('./utils');
 
 async function uploadImages(sdk, zipPath) {
     try {
-        console.log("=== Upload images ===");
-        // todo здесь ошибка Error: error upload images: Error [ERR_FR_MAX_BODY_LENGTH_EXCEEDED]: Request body larger than maxBodyLength limit
-        // todo она растет из самого сдк, не из реста, надо разобраться
-        // todo возможно куда то не туда заливает
+        console.log('=== Upload images ===');
         const { fileUrl } = await sdk.ipfs.uploadZip({ file: fs.readFileSync(zipPath) });
-        console.log(`Images uploaded and available by ${fileUrl}`);
+
+        console.log(`Images uploaded and available at ${fileUrl}`);
+        await writeData('fileUrl', fileUrl);
         return fileUrl;
     } catch (e) {
         throw new Error(`error upload images: ${e}`);

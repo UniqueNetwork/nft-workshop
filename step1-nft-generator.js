@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require('fs');
 var BigNumber = require('bignumber.js');
 const config = require('./config.js');
 

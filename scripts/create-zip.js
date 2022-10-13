@@ -7,7 +7,19 @@ const faces = JSON.parse(fs.readFileSync(`${config.outputFolder}/${config.output
 
 async function createZipArchive() {
     try {
+        const zipPath = path.resolve(
+            config.outputFolder,
+            'archive.zip',
+        );
+
         const zip = new AdmZip();
+
+        if (config.coverFileName) {
+            zip.addLocalFile(path.resolve(
+                config.imagePartsFolder,
+                config.coverFileName,
+            ));
+        }
 
         const indexes = Array.from({ length: config.desiredCount },(_, i) => i+1);
         indexes.forEach((i) => {
@@ -15,18 +27,12 @@ async function createZipArchive() {
             if (face) {
                 zip.addLocalFile(path.resolve(
                     config.outputFolder,
-                    config.imagePrefix + i + '.png',
+                    `${config.imagePrefix}${i}.png`,
                 ));
             }
         });
 
-        const zipPath = path.resolve(
-            config.outputFolder,
-            'images.zip',
-        );
-
         zip.writeZip(zipPath);
-
         return zipPath;
     } catch (e) {
         throw new Error(`error creating zip: ${e}`);

@@ -1,7 +1,6 @@
-const fs = require("fs");
-const mergeImg = require('merge-img');
+const fs = require('fs');
 const config = require('./config');
-const { spawn, Pool, Worker } = require("threads");
+const { spawn, Pool, Worker } = require('threads');
 
 const attributes = config.attributes;
 
@@ -14,7 +13,7 @@ function getImageData(arr) {
     if (arr[i] > 0) {
       const img = {
         src: `${config.imagePartsFolder}/${attributes[i].name}${arr[i]}.png`,
-        offsetX: (i == 0) ? 0 : -1706, // <-------- Put your image width here
+        offsetX: (i == 0) ? 0 : -config.imageWidth,
         offsetY: 0,
       }
       images.push(img);
@@ -37,7 +36,7 @@ function printAttributes(i) {
 
 async function generateImages() {
 
-  const pool = Pool(() => spawn(new Worker("./scripts/generate-image.worker")), 10 /* optional size */);
+  const pool = Pool(() => spawn(new Worker('./scripts/generate-image.worker')), config.numberOfCores);
 
   for (let i=0; i<faces.length; i++) {
 
