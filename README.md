@@ -79,17 +79,17 @@ You can use public endpoints for access Rest:
 
 #### Opal
 ```
-https://rest.unique.network/opal
+https://rest.unique.network/opal/v1
 ```
 
 #### Quartz
 ```
-https://rest.unique.network/quartz
+https://rest.unique.network/quartz/v1
 ```
 
 #### Unique
 ```
-https://rest.unique.network/unique
+https://rest.unique.network/unique/v1
 ```
 
 ## Step 1: Generate NFT Properties
