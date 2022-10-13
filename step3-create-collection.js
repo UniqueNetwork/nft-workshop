@@ -27,6 +27,8 @@ async function main() {
 
   const zipPath = await createZipArchive();
   const { sdk, signer } = await initializeSdk();
+  // todo remove with @unique-nft/sdk@^0.1.6
+  sdk.instance.defaults.maxBodyLength = Infinity;
   let fileUrl = await readData('fileUrl');
   if (!fileUrl) fileUrl = await uploadImages(sdk, zipPath);
 

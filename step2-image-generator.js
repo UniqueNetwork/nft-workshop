@@ -36,7 +36,7 @@ function printAttributes(i) {
 
 async function generateImages() {
 
-  const pool = Pool(() => spawn(new Worker('./scripts/generate-image.worker')), config.numberOfCores);
+  const pool = Pool(() => spawn(new Worker('./scripts/generate-image.worker')), config.imagesInParallel);
 
   for (let i=0; i<faces.length; i++) {
 

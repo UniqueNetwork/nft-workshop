@@ -23,7 +23,7 @@ const config = {
     ],
     outputFolder: './generated-nfts',
     outputJSON: 'nfts.json',
-    numberOfCores: 10
+    imagesInParallel: require('os').cpus().length,
 }
 
 module.exports = config;
