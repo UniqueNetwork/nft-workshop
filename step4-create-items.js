@@ -46,7 +46,7 @@ async function main() {
     const { parsed } = await sdk.tokens.createMultiple.submitWaitResult({
       address: signer.instance.address,
       collectionId: collectionId,
-      data: chunkData
+      tokens: chunkData
     });
 
     result = [ ...result, ...parsed];
