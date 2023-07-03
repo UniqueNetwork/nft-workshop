@@ -19,6 +19,10 @@ async function main() {
     return;
   }
 
+  if (config.desiredCount > faces.length) {
+    throw Error('The desired count is more than tokens in nfts.csv');
+  }
+
   const data = Array(config.desiredCount)
     .slice(offset || 0)
     .fill({})
