@@ -35,10 +35,14 @@ async function main() {
   console.log('=== Create collection ===');
   const attributesSchema = {};
   attributes.forEach(({ name, required, values }, i) => {
-    const enumValues = {};
-    values.forEach((value, j) => {
-      enumValues[j.toString()] = { _: value.value ?? value  };
-    });
+    let enumValues;
+    if(values) {
+      enumValues = {};
+      values.forEach((value, j) => {
+        enumValues[j.toString()] = { _: value.value ?? value  };
+      });
+    }
+
     attributesSchema[i.toString()] = {
       name: {
         _: name,
@@ -46,8 +50,9 @@ async function main() {
       type: 'string',
       optional: !required,
       isArray: false,
-      enumValues: enumValues
     };
+
+    if (enumValues) attributesSchema[i.toString()].enumValues = enumValues;
   });
 
   inputDataForCreateCollection.schema.attributesSchema = attributesSchema;

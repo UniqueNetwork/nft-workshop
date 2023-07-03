@@ -28,9 +28,14 @@ async function main() {
       const encodedAttributes = {};
       faces[i].forEach((el, j) => {
         if (el) {
-          const imageIdx = config.attributes[j].values.findIndex(v => v === el || v.value === el) + 1;
-          if(imageIdx === 0) throw Error('imageIdx cannot be null');    
-          encodedAttributes[j] = imageIdx - 1;
+          const attributeValues = config.attributes[j].values;
+          if (attributeValues) {
+            const imageIdx = attributeValues.findIndex(v => v === el || v.value === el) + 1;
+            if(imageIdx === 0) throw Error('imageIdx cannot be null');    
+            encodedAttributes[j] = imageIdx - 1;
+          } else {
+            encodedAttributes[j] = {_: el};
+          }
         }
       });
       return {
