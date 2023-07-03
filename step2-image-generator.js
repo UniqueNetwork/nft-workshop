@@ -1,5 +1,6 @@
 const fs = require('fs');
 const config = require('./config');
+const {readCSV} = require('./scripts/utils');
 const { spawn, Pool, Worker } = require('threads');
 
 const attributes = config.attributes;
@@ -10,9 +11,12 @@ function getImageData(arr) {
   let images = [];
 
   for (let i=0; i < arr.length; i++) {
-    if (arr[i] > 0) {
+    // if image part optional it could be skipped
+    if (arr[i] !== "") {
+      const imageIdx = attributes[i].values.findIndex(v => v === arr[i] || v.value === arr[i]) + 1;
+      if(imageIdx === 0) throw Error('imageIdx cannot be null');
       const img = {
-        src: `${config.imagePartsFolder}/${attributes[i].name}${arr[i]}.png`,
+        src: `${config.imagePartsFolder}/${attributes[i].name}${imageIdx}.png`,
         offsetX: (i == 0) ? 0 : -config.imageWidth,
         offsetY: 0,
       }
@@ -58,7 +62,7 @@ async function generateImages() {
 }
 
 async function main() {
-  faces = JSON.parse(fs.readFileSync(`${config.outputFolder}/${config.outputJSON}`));
+  faces = await readCSV();
   console.time('images');
   await generateImages();
   console.timeEnd('images');

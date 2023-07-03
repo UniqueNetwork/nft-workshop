@@ -1,11 +1,13 @@
 const config = require('../config');
 const AdmZip = require('adm-zip');
 const path = require('path');
-const fs = require('fs');
-const faces = JSON.parse(fs.readFileSync(`${config.outputFolder}/${config.outputJSON}`));
+const {readCSV} = require('./utils');
+
+let faces;
 
 
 async function createZipArchive() {
+    faces = await readCSV(`${config.outputFolder}/${config.outputCSV}`);
     try {
         const zipPath = path.resolve(
             config.outputFolder,

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { convertArrayToCSV } = require('convert-array-to-csv');
 var BigNumber = require('bignumber.js');
 const config = require('./config.js');
 
@@ -16,14 +17,19 @@ function attributeName(i) {
 }
 
 function propertyName(i, j) {
-  const property = attributes[i].values[j - 1];
-  return property?.value ? property?.value : property;
+  let property = attributes[i].values[j - 1];
+  property = property?.value ? property?.value : property;
+  return property ? property : "";
 }
 
 function logAttributes(prefix, face) {
-  console.log(prefix, face.map((value, index) => {
-    return [attributeName(index), propertyName(index, value)];
-  }));
+  console.log(prefix, getFaceAttributes(face));
+}
+
+function getFaceAttributes(attributesArray) {
+  return attributesArray.map((value, index) => 
+    propertyName(index, value)
+  );
 }
 
 function getLenByWeights(values, required = false) {
@@ -93,9 +99,10 @@ function generateNFTs() {
     if (!bnIncludes(faceCodes, code)) {
       faceCodes.push(code);
 
-      const face = codeToArray(code);
+      const codedFace = codeToArray(code);
 
-      logAttributes('Randomized NFT:', face);
+      logAttributes('Randomized NFT:', codedFace);
+      const face = getFaceAttributes(codedFace);
 
       faces.push(face);
     }
@@ -107,7 +114,11 @@ function generateNFTs() {
   if (!fs.existsSync(config.outputFolder)){
     fs.mkdirSync(config.outputFolder);
   }
-  fs.writeFileSync(`${config.outputFolder}/${config.outputJSON}`, JSON.stringify(faces));
+  const facesToCSV = convertArrayToCSV(faces, {
+    separator: ',',
+    header: [config.attributes.map(attr => attr.name)]
+  });
+  fs.writeFileSync(`${config.outputFolder}/${config.outputCSV}`, facesToCSV);
 }
 
 function main() {

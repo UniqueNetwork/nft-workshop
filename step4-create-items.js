@@ -1,9 +1,10 @@
 const config = require('./config');
-const faces = require(`${config.outputFolder}/${config.outputJSON}`);
 const initializeSdk = require('./scripts/initialize-sdk');
-const { readData } = require('./scripts/utils');
+const { readData, readCSV } = require('./scripts/utils');
 
+let faces;
 async function main() {
+  faces = await readCSV(`${config.outputFolder}/nfts.csv`);
   console.log('=== Create items ===');
 
   const collectionId = await readData('collectionId');
@@ -27,7 +28,9 @@ async function main() {
       const encodedAttributes = {};
       faces[i].forEach((el, j) => {
         if (el) {
-          encodedAttributes[j] = el - 1;
+          const imageIdx = config.attributes[j].values.findIndex(v => v === el || v.value === el) + 1;
+          if(imageIdx === 0) throw Error('imageIdx cannot be null');    
+          encodedAttributes[j] = imageIdx - 1;
         }
       });
       return {
@@ -37,7 +40,6 @@ async function main() {
         }
       }
     });
-
   let result = [];
   let chunkNumber = 0;
   while (result.length + offset < config.desiredCount) {

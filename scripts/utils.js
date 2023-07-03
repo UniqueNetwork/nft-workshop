@@ -1,4 +1,5 @@
 const fs = require('fs');
+const CsvReadableStream = require('csv-reader');
 const path = require('path');
 const config = require('../config');
 
@@ -31,7 +32,28 @@ async function readData(field) {
     };
 }
 
+async function readCSV() {
+    console.log('Reading CSV...');
+    const data = [];
+    await new Promise((resolve) => {
+      let inputStream = fs.createReadStream(`${config.outputFolder}/${config.outputCSV}`, 'utf8');
+  
+      inputStream
+        .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+        .on('data', function (row) {
+            data.push(row);
+            console.log('A row arrived: ', row);
+        })
+        .on('end', function () {
+            console.log('No more rows!');
+            resolve();
+        });
+    })
+    return data.splice(1);
+  }
+
 module.exports = {
     writeData,
-    readData
+    readData,
+    readCSV
 };

@@ -1,6 +1,6 @@
 const config = {
     endpoint: 'https://rest.unique.network/opal/v1',
-    ownerSeed: '//Alice',
+    ownerSeed: '', // !DO NOT COMIT! Set your seed phrase
 
     imagePartsFolder: './images',
     imagePrefix: 'workoholic_',
@@ -11,7 +11,7 @@ const config = {
     tokenPrefix: 'TMP',
 
     desiredCount: 120,
-    numberOfTokensGeneratedAtOnce: 50,
+    numberOfTokensGeneratedAtOnce: 25,
 
     attributes: [
         { name: 'head', required: true, values: ['Regular Head'] },
@@ -22,7 +22,7 @@ const config = {
         { name: 'mouth', required: true, values: ['Smirk', 'Regular Smile', {value: 'Wide Smile', weight: 3}] }
     ],
     outputFolder: './generated-nfts',
-    outputJSON: 'nfts.json',
+    outputCSV: 'nfts.csv',
     imagesInParallel: require('os').cpus().length,
 }
 
