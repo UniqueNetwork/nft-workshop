@@ -16,7 +16,7 @@
     "@polkadot/api": "6.0.5",
     "@unique-nft/accounts": "^0.3.4",
     "@unique-nft/client": "^0.1.6",
-    "@unique-nft/sdk": "^0.1.13",
+    "@unique-nft/sdk": "^0.2.17",
     "adm-zip": "^0.5.9",
     "bignumber.js": "^9.0.0",
     "convert-array-to-csv": "^2.0.0",

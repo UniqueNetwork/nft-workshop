@@ -1,6 +1,6 @@
 const config = require('../config');
 const { KeyringProvider } = require("@unique-nft/accounts/keyring");
-const { Sdk } = require("@unique-nft/sdk");
+const Sdk = require("@unique-nft/sdk");
 
 async function initializeSdk() {
     try {
@@ -13,7 +13,7 @@ async function initializeSdk() {
             signer
         };
         return {
-            sdk: new Sdk(clientOptions),
+            sdk: new Sdk.default(clientOptions),
             signer
         };
     } catch (e) {
